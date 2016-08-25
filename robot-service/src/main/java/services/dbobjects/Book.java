@@ -6,16 +6,16 @@ import javax.persistence.*;
  * Created by daniel on 25.08.16.
  */
 @Entity
-
+@Table(name="book")
 public class Book {
     @Id
-    @Column(name="id")
+    @Column(name="book_id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    private String type;
 
-    private int price;
+    private String color;
 
     public int getId() {
         return id;
@@ -26,18 +26,26 @@ public class Book {
     }
 
     public String getName() {
-        return name;
+        return type;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.type = name;
     }
 
-    public int getPrice() {
-        return price;
+    public String getType() {
+        return type;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
