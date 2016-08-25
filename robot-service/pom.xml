@@ -11,5 +11,23 @@
 
     <artifactId>robot-service</artifactId>
 
+    <properties>
+        <springfox-swagger.version>2.2.2</springfox-swagger.version>
+    </properties>
+
+    <dependencies>
+        <!--Swagger configuration-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+        <!--to create ui for swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
