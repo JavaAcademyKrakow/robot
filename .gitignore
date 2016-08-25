@@ -14,7 +14,7 @@ hs_err_pid*
 # our ignored files
 *.iml
 .idea/*
-target/*
+*/target/*
 
 
 # Created by https://www.gitignore.io/api/vim,intellij,netbeans,eclipse,linux
