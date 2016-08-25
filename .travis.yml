@@ -1,2 +1,8 @@
-Either fill that or set up Jenkins.
-Note, I'd like your readme to have the badge.
+os:
+  - linux
+jdk:
+  - oraclejdk8
+
+language: java
+sudo: false
+script: mvn clean verify
