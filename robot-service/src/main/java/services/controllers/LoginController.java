@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @RequestMapping("/login")
-    public boolean sampleIt(String username, String password){
+    public boolean sampleIt(String username, String password) {
         return true;
     }
 }
