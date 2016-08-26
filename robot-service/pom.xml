@@ -7,9 +7,51 @@
         <groupId>g-shock-team.robot</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
+    <version>1.0</version>
 
     <artifactId>robot-service</artifactId>
 
+    <properties>
+        <maven.dependency.plugin.version>2.3</maven.dependency.plugin.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>g-shock-team.robot</groupId>
+            <artifactId>robot-db</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>${webapp-runner.version}</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

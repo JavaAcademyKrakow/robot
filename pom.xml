@@ -8,11 +8,13 @@
     <artifactId>robot</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>robot-db</module>
         <module>robot-service</module>
         <module>robot-logic</module>
     </modules>
+
 
     <properties>
         <maven.compiler.jdk.version>1.8</maven.compiler.jdk.version>
@@ -21,21 +23,20 @@
         <maven.compiler.version>3.5.1</maven.compiler.version>
         <jacoco.version>0.7.7.201606060606</jacoco.version>
         <testng.version>6.9.10</testng.version>
-        <spring.version>4.3.1.RELEASE</spring.version>
         <maven.surefire.plugin.version>2.19</maven.surefire.plugin.version>
+        <webapp-runner.version>8.0.33.1</webapp-runner.version>
+        <springframework.version>4.3.2.RELEASE</springframework.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <springfox-swagger.version>2.2.2</springfox-swagger.version>
+        <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+        <jackson-databind.version>2.5.0</jackson-databind.version>
+        <json-simple.version>1.1.1</json-simple.version>
+        <common.dbcp.version>1.4</common.dbcp.version>
+        <hibernate.version>5.2.2.Final</hibernate.version>
+        <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
     </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.0.RELEASE</version>
-    </parent>
-
     <dependencies>
-        <!--
-          https://mvnrepository.com/artifact/log4j/log4j
-          We use testNG in our project because it is more powerful than jUnit
-        -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -43,15 +44,86 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.version}</version>
         </dependency>
 
+        <!--Swagger configuration-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+        <!--to create ui for swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple.version}</version>
+        </dependency>
+        <!--just a json documentation-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+
+        <!-- Spring JDBC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${common.dbcp.version}</version>
+        </dependency>
+
+        <!-- Spring ORM support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
