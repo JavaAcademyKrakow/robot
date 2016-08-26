@@ -13,7 +13,11 @@
     <version>1.0</version>
 
     <artifactId>robot-service</artifactId>
-    
+
+    <properties>
+        <maven.dependency.plugin.version>2.3</maven.dependency.plugin.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>g-shock-team.robot</groupId>
@@ -28,7 +32,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
+                <version>${maven.dependency.plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
