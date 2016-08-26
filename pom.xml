@@ -6,7 +6,13 @@
 
     <groupId>g-shock-team.robot</groupId>
     <artifactId>robot</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>robot-db</module>
+        <module>robot-service</module>
+        <module>robot-logic</module>
+    </modules>
 
     <properties>
         <maven.compiler.jdk.version>1.8</maven.compiler.jdk.version>
@@ -16,6 +22,7 @@
         <jacoco.version>0.7.7.201606060606</jacoco.version>
         <testng.version>6.9.10</testng.version>
         <spring.version>4.3.1.RELEASE</spring.version>
+        <maven.surefire.plugin.version>2.19</maven.surefire.plugin.version>
     </properties>
 
     <parent>
@@ -56,7 +63,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19</version>
+                <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <!-- Sets the VM argument line used when unit tests are run. -->
                     <argLine>${argLine}</argLine>
@@ -65,7 +72,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.7.201606060606</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <!--
                         Prepares the property pointing to the JaCoCo runtime agent which
