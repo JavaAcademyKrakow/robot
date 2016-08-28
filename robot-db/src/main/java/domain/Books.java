@@ -1,32 +1,52 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.Collection;
+
 
 /**
  * First idea of entity representing books.
  */
 @Entity
+@NoArgsConstructor
 public class Books {
+
     @Id
     @GeneratedValue
+    @Setter @Getter
     private long bookID;
+
+    @Getter
+    @Setter
     private String name;
 
-    public long getBookID() {
-        return bookID;
-    }
+    @Getter
+    @Setter
+    private String title;
 
-    public void setBookID(long bookID) {
-        this.bookID = bookID;
-    }
+    @Getter
+    @Setter
+    private String newPrice;
 
-    public String getName() {
-        return name;
-    }
+    @Getter
+    @Setter
+    private String oldPrice;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
+    @Getter
+    @Setter
+    private String description;
+
+
+    @ManyToMany
+    @Setter @Getter
+    private Collection<Author> authors;
+
+    @ManyToOne
+    @Setter @Getter
+    private Category category;
 }
