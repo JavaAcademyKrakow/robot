@@ -15,7 +15,7 @@ public class Category {
     @GeneratedValue
     @Getter
     @Setter
-    private int categoryId;
+    private long categoryId;
 
     @Getter
     @Setter
@@ -25,6 +25,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     @Getter
     @Setter
-    private Collection<Books> books;
+    private Collection<Book> books;
 
 }

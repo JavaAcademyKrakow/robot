@@ -13,16 +13,12 @@ import java.util.Collection;
  */
 @Entity
 @NoArgsConstructor
-public class Books {
+public class Book {
 
     @Id
     @GeneratedValue
     @Setter @Getter
     private long bookID;
-
-    @Getter
-    @Setter
-    private String name;
 
     @Getter
     @Setter

@@ -16,7 +16,9 @@ public class Author {
 
     @Id
     @GeneratedValue
-    private int authorId;
+    @Getter
+    @Setter
+    private long authorId;
 
     @Getter
     @Setter
@@ -27,6 +29,6 @@ public class Author {
     private String lastName;
 
     @ManyToMany (mappedBy = "authors")
-    private Collection<Books> books;
+    private Collection<Book> books;
 
 }
