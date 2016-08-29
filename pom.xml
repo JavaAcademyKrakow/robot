@@ -33,6 +33,9 @@
         <json-simple.version>1.1.1</json-simple.version>
         <common.dbcp.version>1.4</common.dbcp.version>
         <hibernate.version>5.2.2.Final</hibernate.version>
+        <lombok.version>1.16.10</lombok.version>
+        <logback.version>1.1.7</logback.version>
+        <slf4j.api.version>1.7.21</slf4j.api.version>
         <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
     </properties>
 
@@ -118,6 +121,32 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${springframework.version}</version>
+        </dependency>
+
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!--Logging-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.api.version}</version>
         </dependency>
     </dependencies>
 
