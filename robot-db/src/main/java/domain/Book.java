@@ -1,11 +1,9 @@
 package domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -13,6 +11,8 @@ import java.util.Collection;
  */
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Book {
 
     @Id
@@ -22,27 +22,49 @@ public class Book {
 
     @Getter
     @Setter
+    @Column
     private String title;
 
     @Getter
     @Setter
-    private String newPrice;
+    @Column(name = "new_price")
+    private float newPrice;
 
     @Getter
     @Setter
-    private String oldPrice;
+    @Column(name="old_price")
+    private float oldPrice;
 
 
     @Getter
     @Setter
+    private String currency;
+
+    @Getter
+    @Setter
+    private short year;
+
+    @Getter
+    @Setter
+    private String link;
+
+    @Getter
+    @Setter
+    @Lob
     private String description;
+
+    @Getter
+    @Setter
+    private String printHouse;
 
 
     @ManyToMany
     @Setter @Getter
-    private Collection<Author> authors;
+    private List<Author> authors;
 
     @ManyToOne
+    @JoinColumn(name = "categoryID")
     @Setter @Getter
     private Category category;
+
 }

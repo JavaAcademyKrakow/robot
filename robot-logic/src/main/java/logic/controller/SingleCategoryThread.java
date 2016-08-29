@@ -1,7 +1,8 @@
 package logic.controller;
 
-import logic.book.Book;
-import logic.book.Category;
+
+import domain.Book;
+import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,10 +21,10 @@ final class SingleCategoryThread implements Runnable {
     private final Class<? extends Parser> parserClass;
     private final List<URIGenerator> listOfURIGenerators;
     private final BlockingQueue<Book> rootQueue;
-    private final Category category;
+    private final CategoryName category;
 
     SingleCategoryThread(final Class<? extends Parser> parserClass, final List<URIGenerator> listOfURIGenerators,
-                         BlockingQueue<Book> queue, Category category) {
+                         BlockingQueue<Book> queue, CategoryName category) {
         this.parserClass = parserClass;
         this.listOfURIGenerators = listOfURIGenerators;
         rootQueue = queue;

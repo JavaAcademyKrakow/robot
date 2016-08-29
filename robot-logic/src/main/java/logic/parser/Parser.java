@@ -1,7 +1,8 @@
 package logic.parser;
 
-import logic.book.Book;
-import logic.book.Category;
+import domain.Book;
+import domain.CategoryName;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,5 @@ public interface Parser {
      * @param category - current Category (enum)
      * @return - Parser (fluent)
      */
-    Parser setCategory(Category category);
+    Parser setCategory(CategoryName category);
 }

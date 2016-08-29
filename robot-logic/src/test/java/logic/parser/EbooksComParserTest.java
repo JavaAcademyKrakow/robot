@@ -1,6 +1,7 @@
 package logic.parser;
 
-import logic.book.Book;
+
+import domain.Book;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.testng.annotations.Test;

@@ -1,5 +1,10 @@
 package domain;
 
 public enum CategoryName {
-    SEX,LIVE_STYLE
+    EDUCATION_AND_SCIENCE,
+    TRAVEL,
+    LIFESTYLE,
+    SEX,
+    MEDICINE,
+    ADVENTURE;
 }

@@ -1,7 +1,9 @@
 package logic.controller;
 
-import logic.book.Book;
-import logic.book.Category;
+
+
+import domain.Book;
+import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,9 +19,9 @@ final class ParserThread implements Callable<Optional<List<Book>>> {
 
     private final Parser parser;
     private final String link;
-    private final Category category;
+    private final CategoryName category;
 
-    ParserThread(Class<? extends Parser> parserClass, Category category, String link) {
+    ParserThread(Class<? extends Parser> parserClass, CategoryName category, String link) {
         parser = createParser(parserClass);
         this.link = link;
         this.category = category;

@@ -1,18 +1,20 @@
 package logic.controller;
 
-import logic.book.Book;
-import logic.book.Category;
+import domain.Book;
+import domain.CategoryName;
 import logic.parser.EbooksComParser;
 import logic.parser.Parser;
+
 
 import java.util.*;
 import java.util.concurrent.*;
 
-import static logic.book.Category.*;
+
+import static domain.CategoryName.*;
 import static java.lang.Thread.sleep;
 
 /**
- * This class is the main logic.controller of creeper. The main goal of the class is to create an object
+ * This class is the main controller of creeper. The main goal of the class is to create an object
  * that iterates over all available kinds of parsers. Then, for each logic.parser type the thread (ParserClassThread)
  * is created. The thread takes another mapping (which is a value inside fullMappings map) as an argument.
  * The class also contains the list of available logic.parser classes (which is passed by a constructor).
@@ -20,7 +22,7 @@ import static java.lang.Thread.sleep;
 public final class MainController {
 
     private static final int MAX_QUEUE_SIZE = 1000;
-    private final Map<Class<? extends Parser>, Map<Category, List<URIGenerator>>> fullMappings;
+    private final Map<Class<? extends Parser>, Map<CategoryName, List<URIGenerator>>> fullMappings;
     private final BlockingQueue<Book> bookQueue = new LinkedBlockingQueue<>(MAX_QUEUE_SIZE);
 
     /**
@@ -32,7 +34,7 @@ public final class MainController {
 
 
     /**
-     * Launches new logic.parser threads for all different types of parsers.
+     * Launches new parser threads for all different types of parsers.
      */
     public void launch() throws InterruptedException {
         ExecutorService mainExecutor = Executors.newFixedThreadPool(fullMappings.size());
@@ -61,12 +63,12 @@ public final class MainController {
 
     // WARNING: ugly code :)
     // the following code will be moved to DB or XML/JSON
-    private static Map<Class<? extends Parser>, Map<Category, List<URIGenerator>>> initialize() {
+    private static Map<Class<? extends Parser>, Map<CategoryName, List<URIGenerator>>> initialize() {
 
-        Map<Class<? extends Parser>, Map<Category, List<URIGenerator>>> map = new HashMap<>();
+        Map<Class<? extends Parser>, Map<CategoryName, List<URIGenerator>>> map = new HashMap<>();
 
 
-        Map<Category, List<URIGenerator>> innerMapParser1 = new EnumMap<>(Category.class);
+        Map<CategoryName, List<URIGenerator>> innerMapParser1 = new EnumMap<>(CategoryName.class);
 
         List<URIGenerator> parser1EduScience = new LinkedList<>();
         parser1EduScience.add(new URIGenerator("http://www.ebooks.com/subjects/computers/?sortBy=&sortOrder=&RestrictBy=&countryCode=pl&page=###"));

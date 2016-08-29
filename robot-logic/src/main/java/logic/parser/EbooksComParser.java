@@ -1,7 +1,8 @@
 package logic.parser;
 
-import logic.book.Book;
-import logic.book.Category;
+import domain.Book;
+
+import domain.CategoryName;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,8 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import static logic.book.Book.*;
-import static org.jsoup.Jsoup.*;
+import static domain.Book.*;
+import static org.jsoup.Jsoup.connect;
 
 /**
  * Parser implementation for ebooks.com.
@@ -24,7 +25,7 @@ public class EbooksComParser implements Parser {
 
     private Document rootDocument;
     private BookBuilder bookBuilder;
-    private Category category;
+    private CategoryName category;
     private String link;
 
     @Override
@@ -34,7 +35,7 @@ public class EbooksComParser implements Parser {
     }
 
     @Override
-    public Parser setCategory(Category category) {
+    public Parser setCategory(CategoryName category) {
         this.category = category;
         return this;
     }
@@ -97,8 +98,8 @@ public class EbooksComParser implements Parser {
                 description = descriptionDoc.select("div.short-description").select("[itemprop]").text();
 
 
-                bookBuilder = builder().title(title).authors(authors).printHouse(printHouse).year(year).currency(currency)
-                        .oldPrice(oldPrice).newPrice(newPrice).description(description).link(link).category(category);
+                bookBuilder = builder().title(title).printHouse(printHouse).year(year).currency(currency)
+                        .oldPrice(oldPrice).newPrice(newPrice).description(description).link(link);
 
                 resultList.add(bookBuilder.build());
             }
@@ -109,6 +110,8 @@ public class EbooksComParser implements Parser {
 
         return Optional.of(resultList);
     }
+
+
 
     Document openDocument() throws IOException {
         return connect(link).timeout(0).get();

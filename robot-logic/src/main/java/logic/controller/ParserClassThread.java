@@ -1,7 +1,8 @@
 package logic.controller;
 
-import logic.book.Book;
-import logic.book.Category;
+
+import domain.Book;
+import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,10 +21,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 final class ParserClassThread implements Runnable {
     private final Class<? extends Parser> parserClass;
-    private final Map<Category, List<URIGenerator>> categoryMappings;
+    private final Map<CategoryName, List<URIGenerator>> categoryMappings;
     private final BlockingQueue<Book> rootQueue;
 
-    ParserClassThread(final Class<? extends Parser> clazz, final Map<Category, List<URIGenerator>> mappings, BlockingQueue<Book> queue) {
+    ParserClassThread(final Class<? extends Parser> clazz, final Map<CategoryName, List<URIGenerator>> mappings, BlockingQueue<Book> queue) {
         parserClass = clazz;
         categoryMappings = Collections.unmodifiableMap(mappings);
         rootQueue = queue;

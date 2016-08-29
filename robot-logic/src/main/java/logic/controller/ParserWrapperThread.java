@@ -1,7 +1,8 @@
 package logic.controller;
 
-import logic.book.Book;
-import logic.book.Category;
+
+import domain.Book;
+import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.*;
 import static java.lang.Thread.sleep;
 
 /**
- * This class is a wrapper for the threads of logic.parser (because ParserThread is Callable). It allows to
+ * This class is a wrapper for the threads of parser (because ParserThread is Callable). It allows to
  * avoid blocking executor at the level of ParserLauncherThread.
  */
 @Slf4j
@@ -20,7 +21,7 @@ final class ParserWrapperThread implements Runnable {
 
     private final Class<? extends Parser> parserClass;
     private final BlockingQueue<Book> rootQueue;
-    private final Category category;
+    private final CategoryName category;
     private String linkToParse;
 
     private final ParserLauncherThread parentThread;
@@ -29,7 +30,7 @@ final class ParserWrapperThread implements Runnable {
 
 
     ParserWrapperThread(Class<? extends Parser> parserClass, String linkToParse, ParserLauncherThread parentThread,
-                        BlockingQueue<Book> queue, Category category) {
+                        BlockingQueue<Book> queue, CategoryName category) {
         this.parserClass = parserClass;
         this.linkToParse = linkToParse;
         this.parentThread = parentThread;
