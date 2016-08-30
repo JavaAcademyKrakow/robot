@@ -55,7 +55,7 @@ class URIGenerator {
     public boolean equals(Object generator) {
         if (this == generator)
             return true;
-        if (generator == null || !(this.getClass().equals(generator.getClass())))
+        if (generator == null || getClass() != generator.getClass())
             return false;
         URIGenerator linkGeneratorObject = (URIGenerator) generator;
         return linkGeneratorObject.baseURI.equals(baseURI) && currentIndex.get() == linkGeneratorObject.currentIndex.get();
