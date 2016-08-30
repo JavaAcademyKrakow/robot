@@ -1,11 +1,14 @@
-package book;
+package logic.book;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static book.Category.*;
+import static logic.book.Category.*;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Simple test class for Category enum.
+ */
 @Test()
 public class CategoryTest {
     @DataProvider(name = "categoryDescription")
@@ -20,6 +23,12 @@ public class CategoryTest {
         };
     }
 
+    /**
+     * Test of descriptions for all categories available in enum. Yeah, this is test of java feature, bu JaCoCo wants
+     * this (missing coverage).
+     * @param category - category enum
+     * @param description - expected description of the category
+     */
     @Test(dataProvider = "categoryDescription")
     public void testCategoryDescriptions(Category category, String description) {
         // given, when

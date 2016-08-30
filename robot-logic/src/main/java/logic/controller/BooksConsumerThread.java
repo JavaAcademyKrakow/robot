@@ -1,15 +1,15 @@
-package controller;
+package logic.controller;
 
-import book.Book;
+import logic.book.Book;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
-
+@Slf4j
 final class BooksConsumerThread implements Runnable {
 
-    //    static long cnt = 0;
     private final BlockingQueue<Book> rootQueue;
     private boolean run = true;
 
@@ -38,7 +38,7 @@ final class BooksConsumerThread implements Runnable {
 
             if (n > 0) {
                 rootQueue.drainTo(drained);
-                System.out.println(drained);
+                log.info(drained.toString());
             }
         }
     }

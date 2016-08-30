@@ -1,8 +1,9 @@
-package controller;
+package logic.controller;
 
-import book.Book;
-import book.Category;
-import parser.Parser;
+import logic.book.Book;
+import logic.book.Category;
+import logic.parser.Parser;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -10,23 +11,24 @@ import java.util.concurrent.*;
 import static java.lang.Thread.sleep;
 
 /**
- * This class is a wrapper for the threads of parser (because ParserThread is Callable). It allows to
+ * This class is a wrapper for the threads of logic.parser (because ParserThread is Callable). It allows to
  * avoid blocking executor at the level of ParserLauncherThread.
  */
+@Slf4j
 final class ParserWrapperThread implements Runnable {
 
     private final Class<? extends Parser> parserClass;
     private final BlockingQueue<Book> rootQueue;
     private final Category category;
-    private String URIToParse;
+    private String linkToParse;
 
     private final ParserLauncherThread parentThread;
 
 
-    ParserWrapperThread(Class<? extends Parser> parserClass, String URIToParse, ParserLauncherThread parentThread,
+    ParserWrapperThread(Class<? extends Parser> parserClass, String linkToParse, ParserLauncherThread parentThread,
                         BlockingQueue<Book> queue, Category category) {
         this.parserClass = parserClass;
-        this.URIToParse = URIToParse;
+        this.linkToParse = linkToParse;
         this.parentThread = parentThread;
         rootQueue = queue;
         this.category = category;
@@ -36,7 +38,8 @@ final class ParserWrapperThread implements Runnable {
         try {
             sleep(500);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.debug("Interrupted exception found", e);
+            log.error("Interrupted exception found", e);
         }
         parentThread.resetExecutingFlag();
     }
@@ -52,7 +55,8 @@ final class ParserWrapperThread implements Runnable {
                 try {
                     rootQueue.put(e);
                 } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                    log.debug("Interrupted exception found", e);
+                    log.error("Interrupted exception found", e);
                 }
             });
 
@@ -61,14 +65,15 @@ final class ParserWrapperThread implements Runnable {
 
     @Override
     public void run() {
-        Callable<List<Book>> callable = new ParserThread(parserClass, category, URIToParse);
+        Callable<List<Book>> callable = new ParserThread(parserClass, category, linkToParse);
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<List<Book>> futureListOfBooks = executor.submit(callable);
 
         try {
             handleResults(futureListOfBooks.get());
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            log.debug("Exception found", e);
+            log.error("Exception found", e);
         }
 
         executor.shutdown();

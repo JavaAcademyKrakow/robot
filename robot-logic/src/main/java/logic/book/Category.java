@@ -1,4 +1,4 @@
-package book;
+package logic.book;
 
 /**
  * Enum which represents all available categories in the application.

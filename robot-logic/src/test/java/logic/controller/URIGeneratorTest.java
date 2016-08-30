@@ -1,4 +1,4 @@
-package controller;
+package logic.controller;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -7,6 +7,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+
+/**
+ * Test class for URIGenerator
+ */
 @Test()
 public class URIGeneratorTest {
     @DataProvider(name = "URIdataSingle")
@@ -32,16 +36,22 @@ public class URIGeneratorTest {
 
     @DataProvider(name = "URIsequenceSingleArg")
     private Object[][] provideSequenceWithSingleArgs() {
-        final URIGenerator generator = new URIGenerator("http://www.something.com/book=###");
+        final URIGenerator generator = new URIGenerator("http://www.something.com/logic.book=###");
 
         return new Object[][]{
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/book=1"},
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/book=2"},
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/book=3"}
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=1"},
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=2"},
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=3"}
         };
     }
 
 
+    /**
+     * Simple test of generating sequences by URIGenerator.
+     * @param base - base string
+     * @param startingIndex - starting index (to replace ### pattern)
+     * @param expected - expected result
+     */
     @Test(dataProvider = "URIdataSingle")
     public void testGeneratingFirstURI(String base, int startingIndex, String expected) {
         // given
@@ -52,18 +62,32 @@ public class URIGeneratorTest {
         assertEquals(result, expected);
     }
 
+
+    /**
+     * Simple test of generating sequences staring with default (1) starting index
+     * @param actual - generated string (link)
+     * @param expected - expected link
+     */
     @Test(dataProvider = "URIsequence")
     public void testSequence(String actual, String expected) {
         //then
         assertEquals(actual, expected);
     }
 
+    /**
+     * Test that checks the incremental behavior of URIGenerator.
+     * @param actual - generated link
+     * @param expected - expected link
+     */
     @Test(dataProvider = "URIsequenceSingleArg")
     public void testGeneratingSequenceWithSingleArg(String actual, String expected) {
         // then
         assertEquals(actual, expected);
     }
 
+    /**
+     * Test of HashCode calculated by HashCodeBuilder.
+     */
     @Test
     public void hashCodeTest() {
         // given
@@ -78,6 +102,10 @@ public class URIGeneratorTest {
         assertTrue(u1Hash != u2Hash);
     }
 
+
+    /**
+     * Equality test.
+     */
     @Test
     public void equalsTest() {
         // given

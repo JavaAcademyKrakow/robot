@@ -1,8 +1,11 @@
-package controller;
+package logic.controller;
 
-import book.Book;
-import book.Category;
-import parser.Parser;
+import logic.book.Book;
+import logic.book.Category;
+import logic.parser.Parser;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -13,7 +16,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Thread for single Category.
  */
+@Slf4j
 final class SingleCategoryThread implements Runnable {
+
     private final Class<? extends Parser> parserClass;
     private final List<URIGenerator> listOfURIGenerators;
     private final BlockingQueue<Book> rootQueue;
@@ -37,7 +42,8 @@ final class SingleCategoryThread implements Runnable {
         try {
             executor.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.debug("Interrupted exception found", e);
+            log.error("Interrupted exception found", e);
         }
     }
 }

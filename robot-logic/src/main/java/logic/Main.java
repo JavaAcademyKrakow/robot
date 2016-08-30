@@ -1,8 +1,12 @@
-import controller.MainController;
+package logic;
+
+import logic.controller.MainController;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Entry point...
  */
+@Slf4j
 public class Main {
     private final MainController mainController = new MainController();
 
@@ -10,10 +14,15 @@ public class Main {
         try {
             mainController.launch();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.debug("Interrupted exception found", e);
+            log.error("Interrupted exception found", e);
         }
     }
 
+    /**
+     * Entry point of the application.
+     * @param args - unused
+     */
     public static void main(String[] args) {
         Main entryPoint = new Main();
         entryPoint.launch();

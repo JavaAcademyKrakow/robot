@@ -1,21 +1,23 @@
-package controller;
+package logic.controller;
 
-import book.Book;
-import book.Category;
-import parser.EbooksComParser;
-import parser.Parser;
+import logic.book.Book;
+import logic.book.Category;
+import logic.parser.EbooksComParser;
+import logic.parser.Parser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.*;
 
-import static book.Category.*;
+import static logic.book.Category.*;
 import static java.lang.Thread.sleep;
 
 /**
- * This class is the main controller of creeper. The main goal of the class is to create an object
- * that iterates over all available kinds of parsers. Then, for each parser type the thread (ParserClassThread)
+ * This class is the main logic.controller of creeper. The main goal of the class is to create an object
+ * that iterates over all available kinds of parsers. Then, for each logic.parser type the thread (ParserClassThread)
  * is created. The thread takes another mapping (which is a value inside fullMappings map) as an argument.
- * The class also contains the list of available parser classes (which is passed by a constructor).
+ * The class also contains the list of available logic.parser classes (which is passed by a constructor).
  */
 public final class MainController {
 
@@ -32,7 +34,7 @@ public final class MainController {
 
 
     /**
-     * Launches new parser threads for all different types of parsers.
+     * Launches new logic.parser threads for all different types of parsers.
      */
     public void launch() throws InterruptedException {
         ExecutorService mainExecutor = Executors.newFixedThreadPool(fullMappings.size());
@@ -48,7 +50,7 @@ public final class MainController {
 
         mainExecutor.awaitTermination(1, TimeUnit.DAYS);
 
-        while (bookQueue.size() != 0) {
+        while (!bookQueue.isEmpty()) {
             sleep(100);
         }
 

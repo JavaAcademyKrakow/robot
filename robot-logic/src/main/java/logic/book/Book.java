@@ -1,11 +1,11 @@
-package book;
+package logic.book;
 
 import lombok.Builder;
 
 import java.util.List;
 
 /**
- * Single book representation
+ * Single logic.book representation
  */
 @Builder
 public class Book {

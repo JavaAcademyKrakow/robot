@@ -1,4 +1,4 @@
-package controller;
+package logic.controller;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -48,15 +48,16 @@ class URIGenerator {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 31).append(baseURI).append(currentIndex).toHashCode();
+        return new HashCodeBuilder(17, 31).append(baseURI).append(currentIndex.get()).toHashCode();
     }
 
     @Override
     public boolean equals(Object generator) {
-        if (this == generator) return true;
+        if (this == generator)
+            return true;
         if (generator == null || !(this.getClass().equals(generator.getClass())))
             return false;
-        URIGenerator URIGeneratorObject = (URIGenerator) generator;
-        return URIGeneratorObject.baseURI.equals(baseURI) && URIGeneratorObject.currentIndex.equals(currentIndex);
+        URIGenerator linkGeneratorObject = (URIGenerator) generator;
+        return linkGeneratorObject.baseURI.equals(baseURI) && currentIndex.get() == linkGeneratorObject.currentIndex.get();
     }
 }

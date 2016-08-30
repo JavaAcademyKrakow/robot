@@ -1,6 +1,6 @@
-package parser;
+package logic.parser;
 
-import book.Book;
+import logic.book.Book;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.testng.annotations.Test;
@@ -12,10 +12,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertTrue;
 
-
+/**
+ * Test class for EbooksComParser.
+ */
 @Test()
 public class EbooksComParserTest {
 
+    /**
+     * Simple test for EbooksComParser - it uses one html file captured from the website
+     * @throws IOException - when classloader has problems with finding html file in resources directory.
+     */
     @Test
     public void testParser() throws IOException {
         // given

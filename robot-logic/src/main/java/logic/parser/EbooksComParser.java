@@ -1,7 +1,8 @@
-package parser;
+package logic.parser;
 
-import book.Book;
-import book.Category;
+import logic.book.Book;
+import logic.book.Category;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -10,10 +11,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static book.Book.*;
+import static logic.book.Book.*;
 import static org.jsoup.Jsoup.*;
 
-
+/**
+ * Parser implementation for ebooks.com.
+ * Warning: the code is a bit imperative - it might be reworked later.
+ */
+@Slf4j
 public class EbooksComParser implements Parser {
 
     private Document rootDocument;
@@ -41,7 +46,7 @@ public class EbooksComParser implements Parser {
         try {
             rootDocument = openDocument();
             Elements booksFound = findBooks();
-            if (booksFound.text().equals("")) {
+            if ("".equals(booksFound.text())) {
                 return null;
             }
 
@@ -51,12 +56,15 @@ public class EbooksComParser implements Parser {
                 // old price - to check if it is on discount
                 String old = e.select("div.additional-info > span > span").select("[style*=text-decoration:line-through]").text();
 
-                if (old.equals("")) {
+                if ("".equals(old)) {
                     continue;
                 }
 
                 // variables
-                String title, printHouse, description, currency;
+                String title;
+                String printHouse;
+                String description;
+                String currency;
                 List<String> authors = new LinkedList<>();
                 short year;
 
@@ -64,13 +72,13 @@ public class EbooksComParser implements Parser {
                 currency = String.valueOf(old.charAt(0));
 
                 // old price
-                float oldPrice = Float.valueOf(old.replace(currency, "").trim());
+                float oldPrice = Float.parseFloat(old.replace(currency, "").trim());
 
                 // new price
-                float newPrice = Float.valueOf(e.select("div.additional-info > span > span").text().replace(old, "").replace(currency, "").trim());
+                float newPrice = Float.parseFloat(e.select("div.additional-info > span > span").text().replace(old, "").replace(currency, "").trim());
 
                 // title
-                title = e.select("h4 > span.book-title > a").text();
+                title = e.select("h4 > span.logic.book-title > a").text();
 
                 // find authors
                 Elements authorsSet = e.select("h4 > span.author > a");
@@ -95,7 +103,8 @@ public class EbooksComParser implements Parser {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.debug("IOException caught", e);
+            log.error("IOException caught", e);
         }
         return resultList;
     }

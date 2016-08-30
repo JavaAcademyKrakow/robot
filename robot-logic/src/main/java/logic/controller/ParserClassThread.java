@@ -1,8 +1,9 @@
-package controller;
+package logic.controller;
 
-import book.Book;
-import book.Category;
-import parser.Parser;
+import logic.book.Book;
+import logic.book.Category;
+import logic.parser.Parser;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,9 +14,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The root of the tree structure of thread tree. Propagates the mappings from the single parser class
+ * The root of the tree structure of thread tree. Propagates the mappings from the single logic.parser class
  * to the children threads.
  */
+@Slf4j
 final class ParserClassThread implements Runnable {
     private final Class<? extends Parser> parserClass;
     private final Map<Category, List<URIGenerator>> categoryMappings;
@@ -36,7 +38,8 @@ final class ParserClassThread implements Runnable {
         try {
             executor.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.debug("Interrupted exception found", e);
+            log.error("Interrupted exception found", e);
         }
 
     }

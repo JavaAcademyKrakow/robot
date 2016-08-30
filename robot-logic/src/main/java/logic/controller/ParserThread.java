@@ -1,25 +1,26 @@
-package controller;
+package logic.controller;
 
-import book.Book;
-import book.Category;
-import parser.EbooksComParser;
-import parser.Parser;
+import logic.book.Book;
+import logic.book.Category;
+import logic.parser.Parser;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- * Parser thread - launches parser and shows the results
+ * Parser thread - launches logic.parser and shows the results
  */
+@Slf4j
 final class ParserThread implements Callable<List<Book>> {
 
     private final Parser parser;
     private final String link;
     private final Category category;
 
-    ParserThread(Class<? extends Parser> parserClass, Category category, String URI) {
+    ParserThread(Class<? extends Parser> parserClass, Category category, String link) {
         parser = createParser(parserClass);
-        link = URI;
+        this.link = link;
         this.category = category;
     }
 
@@ -29,7 +30,8 @@ final class ParserThread implements Callable<List<Book>> {
         try {
             parser = parserClass.newInstance();
         } catch (IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+            log.debug("Exception found", e);
+            log.error("Exception found", e);
         }
 
         return parser;
