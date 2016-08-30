@@ -1,19 +1,18 @@
 package logic.parser;
 
-import domain.Book;
-
 import domain.CategoryName;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import repositories.ParsedBook;
+import repositories.ParsedBook.ParsedBookBuilder;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import static domain.Book.*;
 import static org.jsoup.Jsoup.connect;
 
 /**
@@ -23,10 +22,12 @@ import static org.jsoup.Jsoup.connect;
 @Slf4j
 public class EbooksComParser implements Parser {
 
+
     private Document rootDocument;
-    private BookBuilder bookBuilder;
+    private ParsedBookBuilder parsedBookBuilder;
     private CategoryName category;
     private String link;
+
 
     @Override
     public Parser setLink(String link) {
@@ -41,8 +42,8 @@ public class EbooksComParser implements Parser {
     }
 
     @Override
-    public Optional<List<Book>> parse() {
-        List<Book> resultList = new LinkedList<>();
+    public Optional<List<ParsedBook>> parse() {
+        List<ParsedBook> resultList = new LinkedList<>();
 
 
         try {
@@ -98,16 +99,19 @@ public class EbooksComParser implements Parser {
                 description = descriptionDoc.select("div.short-description").select("[itemprop]").text();
 
 
-                bookBuilder = builder().title(title).printHouse(printHouse).year(year).currency(currency)
-                        .oldPrice(oldPrice).newPrice(newPrice).description(description).link(link);
+                parsedBookBuilder = ParsedBook.builder().title(title).year(year).currency(currency).authors(authors)
+                        .category(category)
+                        .printHouse(printHouse)
+                        .oldPrice(oldPrice)
+                        .newPrice(newPrice)
+                        .description(description).link(link);
 
-                resultList.add(bookBuilder.build());
+                resultList.add(parsedBookBuilder.build());
             }
 
         } catch (IOException e) {
             log.debug("IOException caught", e);
         }
-
         return Optional.of(resultList);
     }
 

@@ -1,8 +1,7 @@
 package logic.parser;
 
-import domain.Book;
 import domain.CategoryName;
-
+import repositories.ParsedBook;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,14 +13,16 @@ import java.util.Optional;
 public interface Parser {
     /**
      * Main parser method. It performs crawling particular website to obtain discount books data.
+     *
      * @return - Optional with the ist of books on the discount found on the web page. The optional contains empty list
-     *          when there are no books on discount. Moreover, null is wrapped, when the web page
-     *          is not valid (i.e. it does not contain any books).
+     * when there are no books on discount. Moreover, null is wrapped, when the web page
+     * is not valid (i.e. it does not contain any books).
      */
-    Optional<List<Book>> parse();
+    Optional<List<ParsedBook>> parse();
 
     /**
      * Method to set the link to the web page that will be parsed.
+     *
      * @param link - URI of the wep page
      * @return - Parser (fluent)
      */
@@ -29,6 +30,7 @@ public interface Parser {
 
     /**
      * Setter of category of the current book.
+     *
      * @param category - current Category (enum)
      * @return - Parser (fluent)
      */

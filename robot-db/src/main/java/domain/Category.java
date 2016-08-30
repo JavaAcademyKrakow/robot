@@ -1,14 +1,14 @@
 package domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Category {
 
     @Id

@@ -1,10 +1,10 @@
 package logic.parser;
 
 
-import domain.Book;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.testng.annotations.Test;
+import repositories.ParsedBook;
 
 import java.io.*;
 import java.util.List;
@@ -34,7 +34,8 @@ public class EbooksComParserTest {
         // when
         when(parser.openDocument()).thenReturn(Jsoup.parse(html));
         when(parser.parse()).thenCallRealMethod();
-        Optional<List<Book>> optionalListOfBooks = parser.parse();
+        Optional<List<ParsedBook>> optionalListOfBooks = parser.parse();
+        List<ParsedBook> listOfBooks = optionalListOfBooks.get();
 
         // then
         assertTrue(optionalListOfBooks.get().size() == 8);

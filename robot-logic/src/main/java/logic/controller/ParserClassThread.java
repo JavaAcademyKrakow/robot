@@ -1,10 +1,10 @@
 package logic.controller;
 
 
-import domain.Book;
 import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
+import repositories.ParsedBook;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,16 +15,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The root of the tree structure of thread tree. Propagates the mappings from the single logic.parser class
+ * The root of the tree structure of thread tree. Propagates the mappings from the single parser class
  * to the children threads.
  */
 @Slf4j
 final class ParserClassThread implements Runnable {
     private final Class<? extends Parser> parserClass;
     private final Map<CategoryName, List<URIGenerator>> categoryMappings;
-    private final BlockingQueue<Book> rootQueue;
+    private final BlockingQueue<ParsedBook> rootQueue;
 
-    ParserClassThread(final Class<? extends Parser> clazz, final Map<CategoryName, List<URIGenerator>> mappings, BlockingQueue<Book> queue) {
+    ParserClassThread(final Class<? extends Parser> clazz, final Map<CategoryName, List<URIGenerator>> mappings, BlockingQueue<ParsedBook> queue) {
         parserClass = clazz;
         categoryMappings = Collections.unmodifiableMap(mappings);
         rootQueue = queue;

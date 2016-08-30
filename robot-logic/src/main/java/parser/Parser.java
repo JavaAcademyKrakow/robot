@@ -1,8 +1,8 @@
 package parser;
 
 
-import domain.Book;
 import domain.CategoryName;
+import repositories.ParsedBook;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,9 @@ import java.util.Optional;
  * (obtained by JSOUP from the Internet).
  */
 public interface Parser {
-    Optional<List<Book>> parse();
+
+    Optional<List<ParsedBook>> parse();
     Parser setLink(String link);
+
     Parser setCategory(CategoryName category);
 }

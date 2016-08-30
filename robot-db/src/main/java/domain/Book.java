@@ -17,7 +17,8 @@ public class Book {
 
     @Id
     @GeneratedValue
-    @Setter @Getter
+    @Setter
+    @Getter
     private long bookID;
 
     @Getter
@@ -32,12 +33,13 @@ public class Book {
 
     @Getter
     @Setter
-    @Column(name="old_price")
+    @Column(name = "old_price")
     private float oldPrice;
 
 
     @Getter
     @Setter
+    @Column(length = 3)
     private String currency;
 
     @Getter
@@ -55,16 +57,19 @@ public class Book {
 
     @Getter
     @Setter
-    private String printHouse;
+    @ManyToOne
+    @JoinColumn(name = "print_houseID")
+    private PrintHouse printHouse;
 
 
     @ManyToMany
-    @Setter @Getter
+    @Setter
+    @Getter
     private List<Author> authors;
 
     @ManyToOne
     @JoinColumn(name = "categoryID")
-    @Setter @Getter
+    @Setter
+    @Getter
     private Category category;
-
 }

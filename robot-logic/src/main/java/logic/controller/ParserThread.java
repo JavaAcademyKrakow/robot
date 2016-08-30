@@ -2,20 +2,20 @@ package logic.controller;
 
 
 
-import domain.Book;
 import domain.CategoryName;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
+import repositories.ParsedBook;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 
 /**
- * Parser thread - launches logic.parser and shows the results
+ * Parser thread - launches parser and shows the results
  */
 @Slf4j
-final class ParserThread implements Callable<Optional<List<Book>>> {
+final class ParserThread implements Callable<Optional<List<ParsedBook>>> {
 
     private final Parser parser;
     private final String link;
@@ -41,7 +41,7 @@ final class ParserThread implements Callable<Optional<List<Book>>> {
     }
 
     @Override
-    public Optional<List<Book>> call() throws Exception {
+    public Optional<List<ParsedBook>> call() throws Exception {
         parser.setLink(link).setCategory(category);
         return parser.parse();
     }

@@ -1,8 +1,6 @@
 package domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,9 @@ import javax.persistence.ManyToMany;
 import java.util.Collection;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Author {
 
     @Id
@@ -22,13 +22,11 @@ public class Author {
 
     @Getter
     @Setter
-    private String firstName;
+    private String name;
 
+    @ManyToMany(mappedBy = "authors")
     @Getter
     @Setter
-    private String lastName;
-
-    @ManyToMany (mappedBy = "authors")
     private Collection<Book> books;
 
 }

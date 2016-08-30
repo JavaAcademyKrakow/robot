@@ -1,10 +1,9 @@
 package logic.controller;
 
-import domain.Book;
 import domain.CategoryName;
 import logic.parser.EbooksComParser;
 import logic.parser.Parser;
-
+import repositories.ParsedBook;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -23,7 +22,7 @@ public final class MainController {
 
     private static final int MAX_QUEUE_SIZE = 1000;
     private final Map<Class<? extends Parser>, Map<CategoryName, List<URIGenerator>>> fullMappings;
-    private final BlockingQueue<Book> bookQueue = new LinkedBlockingQueue<>(MAX_QUEUE_SIZE);
+    private final BlockingQueue<ParsedBook> bookQueue = new LinkedBlockingQueue<>(MAX_QUEUE_SIZE);
 
     /**
      * Default constructor.
