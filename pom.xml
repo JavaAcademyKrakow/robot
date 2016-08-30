@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.bookcrawler</groupId>
+    <artifactId>robot</artifactId>
+    <packaging>war</packaging>
+    <version>1.0</version>
+    <name>Maciek-robot</name>
+
+    <properties>
+        <java-version>1.8</java-version>
+        <spring-webmvc.version>4.3.2.RELEASE</spring-webmvc.version>
+        <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
+        <jstl.version>1.2</jstl.version>
+        <jsoup.version>1.8.3</jsoup.version>
+        <logback.version>1.0.13</logback.version>
+        <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-war-plugin.version>2.4</maven-war-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring-webmvc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>Maciek-robot</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>${tomcat7-maven-plugin.version}</version>
+                    <configuration>
+                        <path>/</path>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java-version}</source>
+                        <target>${java-version}</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                        <warName>Maciek-robot</warName>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
