@@ -4,8 +4,6 @@ import logic.book.Book;
 import logic.book.Category;
 import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -44,6 +42,7 @@ final class SingleCategoryThread implements Runnable {
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
             log.error("Interrupted exception found", e);
+            Thread.currentThread().interrupt();
         }
     }
 }

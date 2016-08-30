@@ -39,9 +39,7 @@ final class ParserClassThread implements Runnable {
             executor.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
-            log.error("Interrupted exception found", e);
+            Thread.currentThread().interrupt();
         }
-
     }
-
 }

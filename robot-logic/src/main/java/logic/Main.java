@@ -16,6 +16,7 @@ public class Main {
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
             log.error("Interrupted exception found", e);
+            Thread.currentThread().interrupt();
         }
     }
 

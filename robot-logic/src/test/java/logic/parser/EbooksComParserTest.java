@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import java.io.*;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,9 +33,9 @@ public class EbooksComParserTest {
         // when
         when(parser.openDocument()).thenReturn(Jsoup.parse(html));
         when(parser.parse()).thenCallRealMethod();
-        List<Book> listOfBooks = parser.parse();
+        Optional<List<Book>> optionalListOfBooks = parser.parse();
 
         // then
-        assertTrue(listOfBooks.size() == 8);
+        assertTrue(optionalListOfBooks.get().size() == 8);
     }
 }

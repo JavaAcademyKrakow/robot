@@ -21,6 +21,7 @@ final class ParserLauncherThread implements Runnable {
 
     private static final int MAX_POOL_SIZE = 5;
     private boolean executing = true;
+    private static final String MESSAGE = "Interrupted exception found";
 
     ParserLauncherThread(final Class<? extends Parser> parserClass, final URIGenerator generator,
                          final BlockingQueue<Book> queue, Category category) {
@@ -63,8 +64,9 @@ final class ParserLauncherThread implements Runnable {
                 sleep(100);
 
             } catch (InterruptedException e) {
-                log.debug("Interrupted exception found", e);
-                log.error("Interrupted exception found", e);
+                log.debug(MESSAGE, e);
+                log.error(MESSAGE, e);
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -73,8 +75,9 @@ final class ParserLauncherThread implements Runnable {
         try {
             executor.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
-            log.debug("Interrupted exception found", e);
-            log.error("Interrupted exception found", e);
+            log.debug(MESSAGE, e);
+            log.error(MESSAGE, e);
+            Thread.currentThread().interrupt();
         }
     }
 }

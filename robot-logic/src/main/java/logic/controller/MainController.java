@@ -4,8 +4,6 @@ import logic.book.Book;
 import logic.book.Category;
 import logic.parser.EbooksComParser;
 import logic.parser.Parser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.*;
@@ -62,7 +60,7 @@ public final class MainController {
 
 
     // WARNING: ugly code :)
-    // TODO: consider moving to DB or XML/JSON
+    // the following code will be moved to DB or XML/JSON
     private static Map<Class<? extends Parser>, Map<Category, List<URIGenerator>>> initialize() {
 
         Map<Class<? extends Parser>, Map<Category, List<URIGenerator>>> map = new HashMap<>();

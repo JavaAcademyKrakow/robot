@@ -6,13 +6,14 @@ import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 /**
  * Parser thread - launches logic.parser and shows the results
  */
 @Slf4j
-final class ParserThread implements Callable<List<Book>> {
+final class ParserThread implements Callable<Optional<List<Book>>> {
 
     private final Parser parser;
     private final String link;
@@ -32,13 +33,14 @@ final class ParserThread implements Callable<List<Book>> {
         } catch (IllegalAccessException | InstantiationException e) {
             log.debug("Exception found", e);
             log.error("Exception found", e);
+            Thread.currentThread().interrupt();
         }
 
         return parser;
     }
 
     @Override
-    public List<Book> call() throws Exception {
+    public Optional<List<Book>> call() throws Exception {
         parser.setLink(link).setCategory(category);
         return parser.parse();
     }

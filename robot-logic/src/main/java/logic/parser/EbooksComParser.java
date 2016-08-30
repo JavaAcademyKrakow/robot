@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static logic.book.Book.*;
 import static org.jsoup.Jsoup.*;
@@ -39,7 +40,7 @@ public class EbooksComParser implements Parser {
     }
 
     @Override
-    public List<Book> parse() {
+    public Optional<List<Book>> parse() {
         List<Book> resultList = new LinkedList<>();
 
 
@@ -47,7 +48,7 @@ public class EbooksComParser implements Parser {
             rootDocument = openDocument();
             Elements booksFound = findBooks();
             if ("".equals(booksFound.text())) {
-                return null;
+                return Optional.empty();
             }
 
 
@@ -78,7 +79,7 @@ public class EbooksComParser implements Parser {
                 float newPrice = Float.parseFloat(e.select("div.additional-info > span > span").text().replace(old, "").replace(currency, "").trim());
 
                 // title
-                title = e.select("h4 > span.logic.book-title > a").text();
+                title = e.select("h4 > span.book-title > a").text();
 
                 // find authors
                 Elements authorsSet = e.select("h4 > span.author > a");
@@ -106,7 +107,8 @@ public class EbooksComParser implements Parser {
             log.debug("IOException caught", e);
             log.error("IOException caught", e);
         }
-        return resultList;
+
+        return Optional.of(resultList);
     }
 
     Document openDocument() throws IOException {

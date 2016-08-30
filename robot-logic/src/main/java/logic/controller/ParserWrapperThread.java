@@ -6,6 +6,7 @@ import logic.parser.Parser;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.*;
 
 import static java.lang.Thread.sleep;
@@ -24,6 +25,8 @@ final class ParserWrapperThread implements Runnable {
 
     private final ParserLauncherThread parentThread;
 
+    private static final String MESSAGE = "Interrupted exception found";
+
 
     ParserWrapperThread(Class<? extends Parser> parserClass, String linkToParse, ParserLauncherThread parentThread,
                         BlockingQueue<Book> queue, Category category) {
@@ -38,25 +41,29 @@ final class ParserWrapperThread implements Runnable {
         try {
             sleep(500);
         } catch (InterruptedException e) {
-            log.debug("Interrupted exception found", e);
-            log.error("Interrupted exception found", e);
+            log.debug(MESSAGE, e);
+            log.error(MESSAGE, e);
+            Thread.currentThread().interrupt();
         }
         parentThread.resetExecutingFlag();
     }
 
-    private void handleResults(List<Book> list) {
-        if (list == null) {
+    private void handleResults(Optional<List<Book>> listOptional) {
+        if (!listOptional.isPresent()) {
             stopExecutingParent();
             return;
         }
+
+        List<Book> list = listOptional.get();
 
         if (!list.isEmpty()) {
             list.forEach(e -> {
                 try {
                     rootQueue.put(e);
                 } catch (InterruptedException e1) {
-                    log.debug("Interrupted exception found", e);
-                    log.error("Interrupted exception found", e);
+                    log.debug(MESSAGE, e);
+                    log.error(MESSAGE, e);
+                    Thread.currentThread().interrupt();
                 }
             });
 
@@ -65,15 +72,16 @@ final class ParserWrapperThread implements Runnable {
 
     @Override
     public void run() {
-        Callable<List<Book>> callable = new ParserThread(parserClass, category, linkToParse);
+        Callable<Optional<List<Book>>> callable = new ParserThread(parserClass, category, linkToParse);
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<List<Book>> futureListOfBooks = executor.submit(callable);
+        Future<Optional<List<Book>>> futureListOfBooks = executor.submit(callable);
 
         try {
             handleResults(futureListOfBooks.get());
         } catch (InterruptedException | ExecutionException e) {
             log.debug("Exception found", e);
             log.error("Exception found", e);
+            Thread.currentThread().interrupt();
         }
 
         executor.shutdown();

@@ -25,7 +25,6 @@ final class BooksConsumerThread implements Runnable {
         run = false;
     }
 
-    // TODO: DB connection
 
     @Override
     public void run() {
