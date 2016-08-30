@@ -38,6 +38,7 @@ final class BooksConsumerThread implements Runnable {
             if (n > 0) {
                 rootQueue.drainTo(drained);
                 log.info(drained.toString());
+                drained.clear();
             }
         }
     }

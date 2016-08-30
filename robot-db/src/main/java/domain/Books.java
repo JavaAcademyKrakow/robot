@@ -4,15 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * First idea of entity representing books.
+ */
 @Entity
 public class Books {
     @Id
     @GeneratedValue
     private long bookID;
-    private String Name;
-
-    public Books() {
-    }
+    private String name;
 
     public long getBookID() {
         return bookID;
@@ -23,10 +23,10 @@ public class Books {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 }
