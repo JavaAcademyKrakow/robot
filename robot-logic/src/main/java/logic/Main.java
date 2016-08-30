@@ -15,7 +15,6 @@ public class Main {
             mainController.launch();
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
-            log.error("Interrupted exception found", e);
             Thread.currentThread().interrupt();
         }
     }

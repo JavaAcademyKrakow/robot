@@ -65,7 +65,6 @@ final class ParserLauncherThread implements Runnable {
 
             } catch (InterruptedException e) {
                 log.debug(MESSAGE, e);
-                log.error(MESSAGE, e);
                 Thread.currentThread().interrupt();
             }
         }
@@ -76,7 +75,6 @@ final class ParserLauncherThread implements Runnable {
             executor.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
             log.debug(MESSAGE, e);
-            log.error(MESSAGE, e);
             Thread.currentThread().interrupt();
         }
     }

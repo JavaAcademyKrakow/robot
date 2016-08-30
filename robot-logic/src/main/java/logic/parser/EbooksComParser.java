@@ -105,7 +105,6 @@ public class EbooksComParser implements Parser {
 
         } catch (IOException e) {
             log.debug("IOException caught", e);
-            log.error("IOException caught", e);
         }
 
         return Optional.of(resultList);

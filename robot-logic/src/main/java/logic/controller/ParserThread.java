@@ -32,7 +32,6 @@ final class ParserThread implements Callable<Optional<List<Book>>> {
             parser = parserClass.newInstance();
         } catch (IllegalAccessException | InstantiationException e) {
             log.debug("Exception found", e);
-            log.error("Exception found", e);
             Thread.currentThread().interrupt();
         }
 

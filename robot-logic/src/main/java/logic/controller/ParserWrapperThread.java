@@ -62,7 +62,6 @@ final class ParserWrapperThread implements Runnable {
                     rootQueue.put(e);
                 } catch (InterruptedException e1) {
                     log.debug(MESSAGE, e);
-                    log.error(MESSAGE, e);
                     Thread.currentThread().interrupt();
                 }
             });
@@ -80,7 +79,6 @@ final class ParserWrapperThread implements Runnable {
             handleResults(futureListOfBooks.get());
         } catch (InterruptedException | ExecutionException e) {
             log.debug("Exception found", e);
-            log.error("Exception found", e);
             Thread.currentThread().interrupt();
         }
 
