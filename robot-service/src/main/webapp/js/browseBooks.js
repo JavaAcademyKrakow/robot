@@ -16,7 +16,7 @@ function loadBooks() {
 
         var s = row.concat(' > .book:nth-child(').concat((i%4)+1).concat(')');
         $(s.concat(" > div.bookId")).html(books[i].bookID);
-        $(s.concat(" > div.bookName")).html(books[i].name);
+        $(s.concat(" > div.bookName")).html(books[i].title);
         //$(s).prepend('<img id="theImg" src="book.png" />')
     }
 }

@@ -58,6 +58,6 @@ public class DefineUserTypeController {
      * @return testing list
      */
     private List<CategoryName> initList() {
-        return Arrays.asList(CategoryName.LIVE_STYLE, CategoryName.SEX);
+        return Arrays.asList(CategoryName.ADVENTURE, CategoryName.SEX);
     }
 }
