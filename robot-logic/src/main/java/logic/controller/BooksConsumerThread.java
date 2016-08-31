@@ -18,7 +18,6 @@ import java.util.concurrent.BlockingQueue;
 @Slf4j
 final class BooksConsumerThread implements Runnable {
 
-    //    static long cnt = 0;
     private final BlockingQueue<ParsedBook> rootQueue;
     private ApplicationContext context = new AnnotationConfigApplicationContext(SpringDBConfiguration.class);
     private BookInput databaseInput = context.getBean(BookInput.class);

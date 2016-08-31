@@ -9,18 +9,23 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class tests if Author with given name is in database if not it put him
+ */
+
 @Repository
 public class AuthorInput {
 
-    Map<String, Author> authors;
+    private Map<String, Author> authors;
     @Autowired
     private AuthorDAO authorDAO;
 
     @PostConstruct
-    protected void init() {
+    private void init() {
         authors = new HashMap<>();
         authorDAO.findAll().forEach(author -> authors.put(author.getName(), author));
     }
+
 
     Author saveAuthor(String name) {
         if (!authors.containsKey(name)) {

@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.Collection;
 
+/**
+ * Author representation in Database
+ */
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor

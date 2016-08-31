@@ -7,6 +7,10 @@ import lombok.Getter;
 
 import java.util.List;
 
+/**
+ * Class contains all information needed for insert a book into database
+ */
+
 @Builder
 public class ParsedBook {
     @Getter

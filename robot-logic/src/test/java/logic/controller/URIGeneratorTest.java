@@ -3,9 +3,7 @@ package logic.controller;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 
 /**
@@ -48,9 +46,10 @@ public class URIGeneratorTest {
 
     /**
      * Simple test of generating sequences by URIGenerator.
-     * @param base - base string
+     *
+     * @param base          - base string
      * @param startingIndex - starting index (to replace ### pattern)
-     * @param expected - expected result
+     * @param expected      - expected result
      */
     @Test(dataProvider = "URIdataSingle")
     public void testGeneratingFirstURI(String base, int startingIndex, String expected) {
@@ -65,7 +64,8 @@ public class URIGeneratorTest {
 
     /**
      * Simple test of generating sequences staring with default (1) starting index
-     * @param actual - generated string (link)
+     *
+     * @param actual   - generated string (link)
      * @param expected - expected link
      */
     @Test(dataProvider = "URIsequence")
@@ -76,7 +76,8 @@ public class URIGeneratorTest {
 
     /**
      * Test that checks the incremental behavior of URIGenerator.
-     * @param actual - generated link
+     *
+     * @param actual   - generated link
      * @param expected - expected link
      */
     @Test(dataProvider = "URIsequenceSingleArg")

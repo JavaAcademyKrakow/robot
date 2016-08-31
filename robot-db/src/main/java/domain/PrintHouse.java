@@ -16,7 +16,7 @@ public class PrintHouse {
     @GeneratedValue
     @Setter
     @Getter
-    private long PrintHouseID;
+    private long printHouseID;
 
     @Setter
     @Getter

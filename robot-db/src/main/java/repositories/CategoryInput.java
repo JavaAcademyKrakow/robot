@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Class tests if Category with given CategoryName exists in database if not it put him
+ */
 @Repository
 @Slf4j
 public class CategoryInput {

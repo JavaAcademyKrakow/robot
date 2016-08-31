@@ -12,21 +12,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class responsible for Inserting Parsed Book into Database
+ */
+
 @Repository
 @Slf4j
 public class BookInput {
 
     @Autowired
-    AuthorInput authorInput;
+    private AuthorInput authorInput;
 
     @Autowired
-    CategoryInput categoryInput;
+    private CategoryInput categoryInput;
 
     @Autowired
-    PrintHouseInput printHouseInput;
+    private PrintHouseInput printHouseInput;
 
     @Autowired
-    BookDAO bookDAO;
+    private BookDAO bookDAO;
 
     public void save(ParsedBook parsedBook) {
         log.info("staring operations on database");

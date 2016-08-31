@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * First idea of entity representing books.
+ * Book representation in database.
  */
 @Entity
 @NoArgsConstructor

@@ -2,7 +2,6 @@ package dbconfiguration;
 
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,6 +30,7 @@ public class SpringDBConfiguration {
 
     /**
      * Bean to create BasicDataSource.
+     *
      * @return - BasicDataSource object
      */
     @Bean
@@ -48,6 +48,7 @@ public class SpringDBConfiguration {
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("show_sql", env.getProperty("show_sql"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.default_schema", env.getProperty("hibernate.default_schema"));
         return properties;
     }
 
