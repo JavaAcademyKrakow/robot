@@ -6,19 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
 @Transactional
-public class PrintHouseInput {
+class PrintHouseInput {
 
     @Autowired
     PrintHouseDAO printHouseDAO;
+    private Map<String, PrintHouse> printHouses;
+
+    @PostConstruct
+    private void init() {
+        printHouses = new HashMap<>();
+        printHouseDAO.findAll().forEach(printHouse -> printHouses.put(printHouse.getName(), printHouse));
+    }
 
     PrintHouse savePrintHouse(String name) {
-        PrintHouse printHouse = printHouseDAO.findByNameIgnoreCase(name);
-        if (printHouse == null) {
-            printHouse = PrintHouse.builder().name(name).build();
+        if (!printHouses.containsKey(name)) {
+            PrintHouse printHouse = PrintHouse.builder().name(name).build();
+            printHouses.put(name, printHouse);
             printHouseDAO.save(printHouse);
         }
-        return printHouse;
+        return printHouses.get(name);
     }
 }

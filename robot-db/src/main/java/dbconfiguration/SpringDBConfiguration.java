@@ -48,7 +48,6 @@ public class SpringDBConfiguration {
         properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
         properties.put("show_sql", env.getProperty("show_sql"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.default_schema", env.getProperty("hibernate.default_schema"));
         return properties;
     }
 

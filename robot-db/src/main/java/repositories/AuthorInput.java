@@ -4,21 +4,30 @@ import dao.AuthorDAO;
 import domain.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
-@Transactional
 public class AuthorInput {
 
+    Map<String, Author> authors;
     @Autowired
-    AuthorDAO authorDAO;
+    private AuthorDAO authorDAO;
+
+    @PostConstruct
+    protected void init() {
+        authors = new HashMap<>();
+        authorDAO.findAll().forEach(author -> authors.put(author.getName(), author));
+    }
 
     Author saveAuthor(String name) {
-        Author author = authorDAO.findByNameIgnoreCase(name);
-        if (author == null) {
-            author = Author.builder().name(name).build();
+        if (!authors.containsKey(name)) {
+            Author author = Author.builder().name(name).build();
+            authors.put(name, author);
             authorDAO.save(author);
         }
-        return author;
+        return authors.get(name);
     }
 }

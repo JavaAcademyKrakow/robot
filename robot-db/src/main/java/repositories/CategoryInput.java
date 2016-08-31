@@ -8,21 +8,31 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import java.util.EnumMap;
+import java.util.Map;
+
 @Repository
 @Slf4j
 public class CategoryInput {
 
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
+    private Map<CategoryName, Category> categories;
+
+    @PostConstruct
+    private void init() {
+        categories = new EnumMap<>(CategoryName.class);
+        categoryDAO.findAll().forEach(category -> categories.put(category.getName(), category));
+    }
 
     Category saveCategory(CategoryName name) {
-        Category category = categoryDAO.findByName(name);
-        log.info(" save category " + category);
-        if (category == null) {
-            category = Category.builder().name(name).build();
-            categoryDAO.save(category);
+        if (!categories.containsKey(name)) {
+            Category author = Category.builder().name(name).build();
+            categories.put(name, author);
+            categoryDAO.save(author);
         }
-        return category;
+        return categories.get(name);
     }
 
 }
