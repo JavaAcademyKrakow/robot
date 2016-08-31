@@ -70,3 +70,9 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+### Sonar ###
+.sonar/
+robot-logic/.sonar/
+robot-logic/sonar-project.properties
+sonar-project.properties

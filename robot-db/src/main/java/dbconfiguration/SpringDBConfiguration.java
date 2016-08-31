@@ -1,4 +1,4 @@
-package DBConfiguration;
+package dbconfiguration;
 
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -13,6 +13,9 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 import java.util.Properties;
 
+/**
+ * The purpose of this class is to prepare and configure DB in Spring.
+ */
 @Configuration
 @PropertySource("classpath:database.properties")
 public class SpringDBConfiguration {
@@ -20,6 +23,10 @@ public class SpringDBConfiguration {
     @Autowired
     Environment env;
 
+    /**
+     * Bean to create BasicDataSource.
+     * @return - BasicDataSource object
+     */
     @Bean
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
