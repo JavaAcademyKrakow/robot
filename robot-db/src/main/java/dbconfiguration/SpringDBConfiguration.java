@@ -52,7 +52,10 @@ public class SpringDBConfiguration {
         return properties;
     }
 
-
+    /**
+     * Entity manager factory bean.
+     * @return - new factory bean of LocalContainerEntityManager
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
@@ -65,6 +68,10 @@ public class SpringDBConfiguration {
         return entityManagerFactory;
     }
 
+    /**
+     * JPA transaction manager.
+     * @return - JpaTransactionManager
+     */
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

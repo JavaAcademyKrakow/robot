@@ -11,11 +11,12 @@ import java.util.Optional;
  * (obtained by JSOUP from the Internet).
  */
 public interface Parser {
+
     /**
      * Main parser method. It performs crawling particular website to obtain discount books data.
      *
      * @return - Optional with the ist of books on the discount found on the web page. The optional contains empty list
-     * when there are no books on discount. Moreover, null is wrapped, when the web page
+     * when there are no books on discount. Moreover, null is wrapped (empty optional), when the web page
      * is not valid (i.e. it does not contain any books).
      */
     Optional<List<ParsedBook>> parse();
@@ -23,7 +24,7 @@ public interface Parser {
     /**
      * Method to set the link to the web page that will be parsed.
      *
-     * @param link - URI of the wep page
+     * @param link - URI of the web page
      * @return - Parser (fluent)
      */
     Parser setLink(String link);
@@ -31,7 +32,7 @@ public interface Parser {
     /**
      * Setter of category of the current book.
      *
-     * @param category - current Category (enum)
+     * @param category - current CategoryName (enum)
      * @return - Parser (fluent)
      */
     Parser setCategory(CategoryName category);

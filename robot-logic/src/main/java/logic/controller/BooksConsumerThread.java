@@ -47,7 +47,7 @@ final class BooksConsumerThread implements Runnable {
 
             if (n > 0) {
                 rootQueue.drainTo(drained);
-                drained.stream().forEach(e -> databaseInput.save(e));
+                drained.stream().forEach(databaseInput::save);
                 log.info(drained.toString());
                 drained.clear();
             }
