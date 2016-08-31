@@ -3,10 +3,11 @@
 */
 function initCheckBox(data) {
 
-    for(i=0; i<data.length; i++) {
+    for(var i=0; i<data.length; i++) {
         var hash ='#';
         var check = hash.concat(data[i].toString());
-        if(checkCkeckBox(check) == false) setCheckBox(check, true);
+        if(checkCkeckBox(check) === false)
+            setCheckBox(check, true);
     }
     updateNumberOfSelectedCategories();
 };
@@ -15,11 +16,7 @@ function initCheckBox(data) {
     Check if boxes are checked
 */
 function checkCkeckBox(checkbox) {
-        if($(checkbox).is(':checked')) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($(checkbox).is(':checked'));
 };
 
 /**
@@ -33,7 +30,7 @@ function setCheckBox(checkbox, val) {
     Update field with number of selected boxes
 */
 function updateNumberOfSelectedCategories() {
-    var numberOfSelectedCategories = checkSelectedCheckBox();
+    var numberOfSelectedCategories = checkSelectedCheckBox().length;
     $('#selectedCategories').html("The number of selected categories: " + numberOfSelectedCategories);
 };
 
@@ -46,11 +43,42 @@ function checkSelectedCheckBox() {
     categories.push('#MEDICINE');
     categories.push('#ADVENTURE');
 
-    var result = 0;
+    var selectedCategories = [];
 
-    for(i=0; i<categories.length; i++) {
+    for(var i=0; i<categories.length; i++) {
         if(checkCkeckBox(categories[i]))
-            result++;
+            selectedCategories.push(categories[i]);
     }
-    return result;
+    return selectedCategories;
 };
+
+function removeHash(tab) {
+
+    for(var i=0; i<tab.length; i++) {
+        tab[i] = tab[i].substring(1, tab[i].length);
+    }
+    return tab;
+};
+
+
+function goToBookBrowser() {
+        var tab = JSON.stringify(removeHash(checkSelectedCheckBox()));
+        console.log(tab);
+
+         $.ajax({
+            method: "GET"
+            , dataType: 'json'
+            , url: "/service/books"
+            , data: {
+                "books" : tab
+                }
+            , success: function (data) {
+
+                books = data.books;
+                console.log(books);
+                $(".main_c").load("/bookBrowser.html", function () {
+                    loadBooks();
+                });
+            }
+         });
+}
