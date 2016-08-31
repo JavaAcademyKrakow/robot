@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import repositories.ParsedBook;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Thread.sleep;
 
@@ -20,8 +21,9 @@ final class ParserLauncherThread implements Runnable {
     private final URIGenerator generator;
     private final BlockingQueue<ParsedBook> rootQueue;
     private final CategoryName category;
-    private boolean executing = true;
     private static final String MESSAGE = "Interrupted exception found";
+
+    final AtomicBoolean executing = new AtomicBoolean(true);
 
     ParserLauncherThread(final Class<? extends Parser> parserClass, final URIGenerator generator,
                          final BlockingQueue<ParsedBook> queue, CategoryName category) {
@@ -31,14 +33,6 @@ final class ParserLauncherThread implements Runnable {
         this.category = category;
     }
 
-    private synchronized boolean isExecuting() {
-        return executing;
-    }
-
-    synchronized void resetExecutingFlag() {
-        executing = false;
-    }
-
 
     @Override
     public void run() {
@@ -46,7 +40,7 @@ final class ParserLauncherThread implements Runnable {
         ExecutorService executor = Executors.newFixedThreadPool(MAX_POOL_SIZE);
         LinkedBlockingQueue<ParserWrapperThread> queue = new LinkedBlockingQueue<>();
 
-        while (isExecuting()) {
+        while (executing.get()) {
 
             try {
                 int count = ((ThreadPoolExecutor) executor).getActiveCount();

@@ -14,6 +14,7 @@ import repositories.ParsedBook;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 final class BooksConsumerThread implements Runnable {
@@ -21,27 +22,19 @@ final class BooksConsumerThread implements Runnable {
     private final BlockingQueue<ParsedBook> rootQueue;
     private ApplicationContext context = new AnnotationConfigApplicationContext(SpringDBConfiguration.class);
     private BookSaver databaseInput = context.getBean(BookSaver.class);
-    private boolean run = true;
+
+    final AtomicBoolean running = new AtomicBoolean(true);
 
     BooksConsumerThread(BlockingQueue<ParsedBook> queue) {
         rootQueue = queue;
     }
-
-    private synchronized boolean running() {
-        return run;
-    }
-
-    synchronized void stopRunning() {
-        run = false;
-    }
-
 
     @Override
     public void run() {
 
         Queue<ParsedBook> drained = new LinkedList<>();
 
-        while (running()) {
+        while (running.get()) {
 
             int n = rootQueue.size();
 
