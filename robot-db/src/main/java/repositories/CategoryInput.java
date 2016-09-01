@@ -30,12 +30,14 @@ public class CategoryInput {
     }
 
     Category saveCategory(CategoryName name) {
-        if (!categories.containsKey(name)) {
-            Category author = Category.builder().name(name).build();
-            categories.put(name, author);
-            categoryDAO.save(author);
+        if (categories.containsKey(name)) {
+            return categories.get(name);
         }
-        return categories.get(name);
+        Category author = Category.builder().name(name).build();
+        categories.put(name, author);
+        categoryDAO.save(author);
+        return author;
+
     }
 
 }

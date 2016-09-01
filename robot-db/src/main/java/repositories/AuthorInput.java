@@ -21,18 +21,19 @@ public class AuthorInput {
     private AuthorDAO authorDAO;
 
     @PostConstruct
-    private void init() {
+    private void init () {
         authors = new HashMap<>();
         authorDAO.findAll().forEach(author -> authors.put(author.getName(), author));
     }
 
 
-    Author saveAuthor(String name) {
-        if (!authors.containsKey(name)) {
-            Author author = Author.builder().name(name).build();
-            authors.put(name, author);
-            authorDAO.save(author);
+    Author saveAuthor (String name) {
+        if (authors.containsKey(name)) {
+            return authors.get(name);
         }
-        return authors.get(name);
+        Author author = Author.builder().name(name).build();
+        authors.put(name, author);
+        authorDAO.save(author);
+        return author;
     }
 }

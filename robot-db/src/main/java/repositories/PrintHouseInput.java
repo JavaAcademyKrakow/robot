@@ -26,10 +26,11 @@ class PrintHouseInput {
 
     PrintHouse savePrintHouse(String name) {
         if (!printHouses.containsKey(name)) {
-            PrintHouse printHouse = PrintHouse.builder().name(name).build();
-            printHouses.put(name, printHouse);
-            printHouseDAO.save(printHouse);
+            return printHouses.get(name);
         }
-        return printHouses.get(name);
+        PrintHouse printHouse = PrintHouse.builder().name(name).build();
+        printHouses.put(name, printHouse);
+        printHouseDAO.save(printHouse);
+        return printHouse;
     }
 }
