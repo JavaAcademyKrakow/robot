@@ -99,12 +99,18 @@ public class EbooksComParser implements Parser {
                 description = descriptionDoc.select("div.short-description").select("[itemprop]").text();
 
 
-                parsedBookBuilder = ParsedBook.builder().title(title).year(year).currency(currency).authors(authors)
+                parsedBookBuilder = ParsedBook
+                        .builder()
+                        .title(title)
+                        .year(year)
+                        .currency(currency)
+                        .authors(authors)
                         .category(category)
                         .printHouse(printHouse)
                         .oldPrice(oldPrice)
                         .newPrice(newPrice)
-                        .description(description).link(link);
+                        .description(description)
+                        .link(descriptionLink);
 
                 resultList.add(parsedBookBuilder.build());
             }
