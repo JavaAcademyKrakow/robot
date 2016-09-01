@@ -18,5 +18,5 @@ public interface BookDAO extends CrudRepository<Book, Long> {
      * @param pageable pagination information
      * @return List of books
      */
-    Page<Book> FindAll(Pageable pageable);
+    Page<Book> findAll(Pageable pageable);
 }
