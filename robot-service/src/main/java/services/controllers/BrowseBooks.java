@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 import services.converter.BookConverter;
 import services.model.response.BooksResponse;
 
-import java.util.List;
-
 @RestController
-public class SelectCategories {
+public class BrowseBooks {
 
-   @Autowired
-    private BookConverter bookConverter;
+    @Autowired
+    BookConverter bookConverter;
 
-    @RequestMapping(method = RequestMethod.GET, value = "categories")
-    public BooksResponse setCategories(@RequestParam(value = "categories")List<String> categories,
-                                        @RequestParam(value = "pageNumber") int pageNumber) {
+    @RequestMapping(method = RequestMethod.GET, value = "numberofpages")
+    public int numberOfPages() {
+        return bookConverter.numberOfPages();
+    }
 
+    @RequestMapping(method = RequestMethod.GET, value = "getbooksfrompage")
+    public BooksResponse getBooksFromPage(@RequestParam (value = "pageNumber")int pageNumber) {
         return new BooksResponse(bookConverter.getBooksFromPage(pageNumber));
     }
 }

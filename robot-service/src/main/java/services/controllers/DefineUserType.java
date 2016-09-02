@@ -14,7 +14,7 @@ import java.util.List;
  * Controller class. Manage controllers when user want to define his type.
  */
 @RestController
-public class DefineUserTypeController {
+public class DefineUserType {
 
     /**
      *

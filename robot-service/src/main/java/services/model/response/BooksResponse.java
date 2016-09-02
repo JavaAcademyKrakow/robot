@@ -1,6 +1,6 @@
 package services.model.response;
 
-import domain.Book;
+import repositories.ParsedBook;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ public class BooksResponse {
     /**
      * list of books that we want to check when we profile our user
      */
-    public final List<Book> books;
+    public final List<ParsedBook> books;
 
     /**
      * We set final variable here
      * @param books)
      */
-    public BooksResponse(List<Book> books) {
+    public BooksResponse(List<ParsedBook> books) {
         this.books = books;
     }
 }

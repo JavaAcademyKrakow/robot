@@ -61,24 +61,31 @@ function removeHash(tab) {
 };
 
 
-function goToBookBrowser() {
+function goToBookBrowser(pageNumber) {
         var tab = JSON.stringify(removeHash(checkSelectedCheckBox()));
         console.log(tab);
 
          $.ajax({
             method: "GET"
             , dataType: 'json'
-            , url: "/service/books"
+            , url: "/service/categories"
             , data: {
-                "books" : tab
+                "categories" : tab
+                , "pageNumber" : pageNumber
                 }
             , success: function (data) {
 
                 books = data.books;
-                console.log(books);
-                $(".main_c").load("/bookBrowser.html", function () {
-                    loadBooks();
-                });
-            }
+
+            },
+
+         }).done(function(data) {
+                  $(".main_c").load("/bookBrowser.html", function () {
+                     loadBooks();
+                     getNumberOfPages();
+                  });
+
          });
-}
+
+
+};
