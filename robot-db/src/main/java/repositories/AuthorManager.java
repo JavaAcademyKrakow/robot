@@ -2,6 +2,7 @@ package repositories;
 
 import dao.AuthorDAO;
 import domain.Author;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class tests if Author with given name is in database if not it put him
+ * {@link AuthorManager} reads all authors which exists in database and save them in memory
  */
-
 @Repository
-public class AuthorInput {
+@Slf4j
+public class AuthorManager {
 
     private Map<String, Author> authors;
     @Autowired
@@ -26,14 +27,18 @@ public class AuthorInput {
         authorDAO.findAll().forEach(author -> authors.put(author.getName(), author));
     }
 
-
-    Author saveAuthor (String name) {
+    /**
+     * Check if Author with given name exists in a database if not in puts new one
+     * @param name  {@link Author} name of author
+     * @return {@link Author}
+     */
+    Author getAuthorForName (String name) {
         if (authors.containsKey(name)) {
             return authors.get(name);
         }
         Author author = Author.builder().name(name).build();
         authors.put(name, author);
-        authorDAO.save(author);
-        return author;
+        log.info("Author " + author);
+        return authorDAO.save(author);
     }
 }

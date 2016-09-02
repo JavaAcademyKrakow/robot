@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import repositories.BookInput;
+import repositories.BookSaver;
 import repositories.ParsedBook;
 
 
@@ -20,7 +20,7 @@ final class BooksConsumerThread implements Runnable {
 
     private final BlockingQueue<ParsedBook> rootQueue;
     private ApplicationContext context = new AnnotationConfigApplicationContext(SpringDBConfiguration.class);
-    private BookInput databaseInput = context.getBean(BookInput.class);
+    private BookSaver databaseInput = context.getBean(BookSaver.class);
     private boolean run = true;
 
     BooksConsumerThread(BlockingQueue<ParsedBook> queue) {

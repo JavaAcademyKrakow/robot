@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Category Representation in Database
+ * Representation of an {@link CategoryName} a Database.
+ * Category is mapped {@code @OnoToMany} to {@link Book}
+ * Do not use CascadeType or fetchType.Eager due to performance issue
  */
 @Entity
 @AllArgsConstructor
@@ -30,4 +32,10 @@ public class Category {
     @Setter
     private Collection<Book> books;
 
+    @Override
+    public String toString () {
+        return "Category{" +
+                "name=" + name +
+                '}';
+    }
 }

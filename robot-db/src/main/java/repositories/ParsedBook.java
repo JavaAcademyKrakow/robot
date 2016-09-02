@@ -8,9 +8,8 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * Class contains all information needed for insert a book into database
+ * Builder for Books which is needed to save all information about the book into correct entities by {@link BookSaver}
  */
-
 @Builder
 public class ParsedBook {
     @Getter

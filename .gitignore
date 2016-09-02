@@ -1,5 +1,6 @@
 *.class
 *.log
+initdata.script
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -16,9 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import java.util.Properties;
 
-/**
- * The purpose of this class is to prepare and configure DB in Spring.
- */
+
 @Configuration
 @ComponentScan(basePackages = "repositories")
 @PropertySource("classpath:database.properties")
@@ -28,11 +26,6 @@ public class SpringDBConfiguration {
     @Autowired
     Environment env;
 
-    /**
-     * Bean to create BasicDataSource.
-     *
-     * @return - BasicDataSource object
-     */
     @Bean
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -52,10 +45,6 @@ public class SpringDBConfiguration {
         return properties;
     }
 
-    /**
-     * Entity manager factory bean.
-     * @return - new factory bean of LocalContainerEntityManager
-     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
@@ -63,15 +52,11 @@ public class SpringDBConfiguration {
         adapter.setDatabase(Database.POSTGRESQL);
         entityManagerFactory.setJpaVendorAdapter(adapter);
         entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan("domain");
+        entityManagerFactory.setPackagesToScan(env.getProperty("daos.packages"));
         entityManagerFactory.setJpaProperties(hibernateProperties());
         return entityManagerFactory;
     }
 
-    /**
-     * JPA transaction manager.
-     * @return - JpaTransactionManager
-     */
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

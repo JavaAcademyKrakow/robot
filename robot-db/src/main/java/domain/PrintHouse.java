@@ -5,9 +5,12 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
- * Simple PrintHouse entity.
+ * Representation of {@link PrintHouse} in database
+ * It contains PrintHouse name which can be common for different Books
+ * Do not use CascadeType or fetchType.Eager due to performance issue
  */
 @Entity
 @NoArgsConstructor
@@ -24,4 +27,11 @@ public class PrintHouse {
     @Setter
     @Getter
     private String name;
+
+    @Override
+    public String toString () {
+        return "PrintHouse{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

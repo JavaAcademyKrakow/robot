@@ -1,7 +1,7 @@
 package domain;
 
 /**
- * Enum with available book categories
+ * Categories of the Books
  */
 public enum CategoryName {
     EDUCATION_AND_SCIENCE,

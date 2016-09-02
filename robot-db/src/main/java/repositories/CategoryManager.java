@@ -13,11 +13,11 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Class tests if Category with given CategoryName exists in database if not it put him
+ * {@link CategoryManager} reads all categories which exists in database and save them in memory
  */
 @Repository
 @Slf4j
-public class CategoryInput {
+public class CategoryManager {
 
     @Autowired
     private CategoryDAO categoryDAO;
@@ -29,15 +29,19 @@ public class CategoryInput {
         categoryDAO.findAll().forEach(category -> categories.put(category.getName(), category));
     }
 
-    Category saveCategory(CategoryName name) {
+    /**
+     * Check if category with a given name exists in database if no create new entry
+     * @param name {@link CategoryName} name of category
+     * @return category from the memory
+     */
+    Category getCategory (CategoryName name) {
         if (categories.containsKey(name)) {
             return categories.get(name);
         }
-        Category author = Category.builder().name(name).build();
-        categories.put(name, author);
-        categoryDAO.save(author);
-        return author;
-
+        Category category = Category.builder().name(name).build();
+        categories.put(name, category);
+        log.info("category" + category);
+        return categoryDAO.save(category);
     }
 
 }

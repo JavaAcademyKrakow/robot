@@ -1,10 +1,11 @@
 package dao;
 
+import domain.Category;
 import domain.PrintHouse;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * This class is responsible for manging PrintHouses in database
+ * interface for CRUD Operations on {@link PrintHouse}
  */
 public interface PrintHouseDAO extends CrudRepository<PrintHouse, Long> {
 
