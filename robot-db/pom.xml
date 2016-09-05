@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <packaging>jar</packaging>
     <parent>
         <artifactId>robot-shock-robot</artifactId>
         <groupId>g-shock-team.robot</groupId>
@@ -12,5 +11,16 @@
 
     <artifactId>robot-db</artifactId>
 
+    <properties>
+        <hsql.version>1.8.0.10</hsql.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>${hsql.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,19 +1,19 @@
 package logic.parser;
 
-import logic.book.Book;
-import logic.book.Category;
+import domain.CategoryName;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import repositories.ParsedBook;
+import repositories.ParsedBook.ParsedBookBuilder;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import static logic.book.Book.*;
-import static org.jsoup.Jsoup.*;
+import static org.jsoup.Jsoup.connect;
 
 /**
  * Parser implementation for ebooks.com.
@@ -22,10 +22,12 @@ import static org.jsoup.Jsoup.*;
 @Slf4j
 public class EbooksComParser implements Parser {
 
+
     private Document rootDocument;
-    private BookBuilder bookBuilder;
-    private Category category;
+    private ParsedBookBuilder parsedBookBuilder;
+    private CategoryName category;
     private String link;
+
 
     @Override
     public Parser setLink(String link) {
@@ -34,14 +36,14 @@ public class EbooksComParser implements Parser {
     }
 
     @Override
-    public Parser setCategory(Category category) {
+    public Parser setCategory(CategoryName category) {
         this.category = category;
         return this;
     }
 
     @Override
-    public Optional<List<Book>> parse() {
-        List<Book> resultList = new LinkedList<>();
+    public Optional<List<ParsedBook>> parse() {
+        List<ParsedBook> resultList = new LinkedList<>();
 
 
         try {
@@ -97,18 +99,23 @@ public class EbooksComParser implements Parser {
                 description = descriptionDoc.select("div.short-description").select("[itemprop]").text();
 
 
-                bookBuilder = builder().title(title).authors(authors).printHouse(printHouse).year(year).currency(currency)
-                        .oldPrice(oldPrice).newPrice(newPrice).description(description).link(link).category(category);
+                parsedBookBuilder = ParsedBook.builder().title(title).year(year).currency(currency).authors(authors)
+                        .category(category)
+                        .printHouse(printHouse)
+                        .oldPrice(oldPrice)
+                        .newPrice(newPrice)
+                        .description(description).link(link);
 
-                resultList.add(bookBuilder.build());
+                resultList.add(parsedBookBuilder.build());
             }
 
         } catch (IOException e) {
             log.debug("IOException caught", e);
         }
-
         return Optional.of(resultList);
     }
+
+
 
     Document openDocument() throws IOException {
         return connect(link).timeout(0).get();

@@ -25,19 +25,20 @@
         <testng.version>6.9.10</testng.version>
         <maven.surefire.plugin.version>2.19</maven.surefire.plugin.version>
         <webapp-runner.version>8.0.33.1</webapp-runner.version>
-        <springframework.version>4.3.2.RELEASE</springframework.version>
+        <springframework.version>4.2.6.RELEASE</springframework.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
         <servlet-api.version>2.5</servlet-api.version>
         <springfox-swagger.version>2.2.2</springfox-swagger.version>
         <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
         <jackson-databind.version>2.5.0</jackson-databind.version>
         <json-simple.version>1.1.1</json-simple.version>
         <common.dbcp.version>1.4</common.dbcp.version>
-        <hibernate.version>5.2.2.Final</hibernate.version>
         <lombok.version>1.16.10</lombok.version>
         <logback.version>1.1.7</logback.version>
         <slf4j.api.version>1.7.21</slf4j.api.version>
         <postgresql.version>9.1-901-1.jdbc4</postgresql.version>
         <mockito-version>1.9.5</mockito-version>
+        <springframework.data.version>1.10.2.RELEASE</springframework.data.version>
     </properties>
 
     <dependencies>
@@ -47,6 +48,13 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${springframework.data.version}</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>

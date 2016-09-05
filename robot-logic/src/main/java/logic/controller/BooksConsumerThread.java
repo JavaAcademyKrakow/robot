@@ -1,7 +1,15 @@
 package logic.controller;
 
-import logic.book.Book;
+
+import dbconfiguration.SpringDBConfiguration;
 import lombok.extern.slf4j.Slf4j;
+
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import repositories.BookSaver;
+import repositories.ParsedBook;
+
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,10 +18,12 @@ import java.util.concurrent.BlockingQueue;
 @Slf4j
 final class BooksConsumerThread implements Runnable {
 
-    private final BlockingQueue<Book> rootQueue;
+    private final BlockingQueue<ParsedBook> rootQueue;
+    private ApplicationContext context = new AnnotationConfigApplicationContext(SpringDBConfiguration.class);
+    private BookSaver databaseInput = context.getBean(BookSaver.class);
     private boolean run = true;
 
-    BooksConsumerThread(BlockingQueue<Book> queue) {
+    BooksConsumerThread(BlockingQueue<ParsedBook> queue) {
         rootQueue = queue;
     }
 
@@ -29,7 +39,7 @@ final class BooksConsumerThread implements Runnable {
     @Override
     public void run() {
 
-        Queue<Book> drained = new LinkedList<>();
+        Queue<ParsedBook> drained = new LinkedList<>();
 
         while (running()) {
 
@@ -37,6 +47,7 @@ final class BooksConsumerThread implements Runnable {
 
             if (n > 0) {
                 rootQueue.drainTo(drained);
+                drained.stream().forEach(databaseInput::save);
                 log.info(drained.toString());
                 drained.clear();
             }

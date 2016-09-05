@@ -2,31 +2,30 @@ package dbconfiguration;
 
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import java.util.Properties;
 
-/**
- * The purpose of this class is to prepare and configure DB in Spring.
- */
+
 @Configuration
+@ComponentScan(basePackages = "repositories")
 @PropertySource("classpath:database.properties")
+@EnableJpaRepositories("dao")
 public class SpringDBConfiguration {
 
     @Autowired
     Environment env;
 
-    /**
-     * Bean to create BasicDataSource.
-     * @return - BasicDataSource object
-     */
     @Bean
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -47,19 +46,21 @@ public class SpringDBConfiguration {
     }
 
     @Bean
-    LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("domain");
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.POSTGRESQL);
+        entityManagerFactory.setJpaVendorAdapter(adapter);
+        entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setPackagesToScan(env.getProperty("daos.packages"));
+        entityManagerFactory.setJpaProperties(hibernateProperties());
+        return entityManagerFactory;
     }
 
     @Bean
-    @Autowired
-    HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory);
+    public JpaTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 }

@@ -1,11 +1,13 @@
 package logic.parser;
 
-import logic.book.Book;
+
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.testng.annotations.Test;
+import repositories.ParsedBook;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,19 +23,20 @@ public class EbooksComParserTest {
 
     /**
      * Simple test for EbooksComParser - it uses one html file captured from the website
+     *
      * @throws IOException - when classloader has problems with finding html file in resources directory.
      */
     @Test
     public void testParser() throws IOException {
         // given
-        InputStream is =  ClassLoader.getSystemResourceAsStream("education_example.html");
+        InputStream is = ClassLoader.getSystemResourceAsStream("education_example.html");
         String html = IOUtils.toString(is);
         EbooksComParser parser = mock(EbooksComParser.class);
 
         // when
         when(parser.openDocument()).thenReturn(Jsoup.parse(html));
         when(parser.parse()).thenCallRealMethod();
-        Optional<List<Book>> optionalListOfBooks = parser.parse();
+        Optional<List<ParsedBook>> optionalListOfBooks = parser.parse();
 
         // then
         assertTrue(optionalListOfBooks.get().size() == 8);
