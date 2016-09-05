@@ -1,6 +1,6 @@
 package logic.springconfig;
 
-public class ResetResponse {
+class ResetResponse {
 
     private final int hour;
     private final int minutes;
@@ -8,7 +8,7 @@ public class ResetResponse {
 
     final boolean canReset;
 
-    public ResetResponse(int hour, int minutes, int seconds, boolean canReset) {
+    ResetResponse(int hour, int minutes, int seconds, boolean canReset) {
         this.hour = hour;
         this.minutes = minutes;
         this.seconds = seconds;

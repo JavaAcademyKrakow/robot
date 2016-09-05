@@ -7,8 +7,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import static logic.Main.*;
 
 @Slf4j
-public class ScheduledBean {
+class ScheduledBean {
 
+    /**
+     * This method tries to launch the controller every four hours.
+     */
     @Scheduled(cron = "0 0 0/4 * * ?")
     public void launch() {
 

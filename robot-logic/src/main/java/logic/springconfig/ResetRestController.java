@@ -12,8 +12,13 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RestController
-public class ResetRestController {
+class ResetRestController {
 
+    /**
+     * REST controller to manage refresh request from the user. It is invoked when user visits the '/reset' URL.
+     * @return RestResponse object which contains an hour, minute, second of the last run and the boolean
+     * which marks if the launch() method of the controller was invoked again. The response is in JSON format.
+     */
     @RequestMapping(value = "/reset", method = GET)
     public ResetResponse reset() {
         boolean canRun = TIME_MANAGER.canRun();
