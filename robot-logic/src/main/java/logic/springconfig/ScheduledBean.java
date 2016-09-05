@@ -12,7 +12,7 @@ class ScheduledBean {
     /**
      * This method tries to launch the controller every four hours.
      */
-    @Scheduled(cron = "0 0 0/4 * * ?")
+    @Scheduled(cron = "0 0 */4 * * ?")
     public void launch() {
 
         if (TIME_MANAGER.canRun()) {
