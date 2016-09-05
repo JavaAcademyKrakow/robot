@@ -1,62 +1,37 @@
 package logic;
 
 import logic.controller.MainController;
+import logic.springconfig.SpringConfig;
+import logic.springconfig.TimeManager;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 
 /**
  * Entry point...
  */
 @Slf4j
 public class Main {
-    private final MainController mainController = new MainController();
+    private static final MainController MAIN_CONTROLLER = new MainController();
+    public static TimeManager TIME_MANAGER = new TimeManager();
 
-    private void launch() {
+    public static void launch() {
         try {
-            mainController.launch();
+            MAIN_CONTROLLER.launch();
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
             Thread.currentThread().interrupt();
         }
     }
 
+
     /**
      * Entry point of the application.
+     *
      * @param args - unused
      */
+    @SuppressWarnings({"unused", "resource"})
     public static void main(String[] args) {
-        Main entryPoint = new Main();
-        entryPoint.launch();
-    }
-
-
-    // Helper class to check if the time to launch the crawler (on user's demand) is not to frequent.
-    private static class TimeManager {
-
-        private static final long MAX_DIFF_HOURS = 1;
-
-        private LocalDateTime lastRun;
-        private LocalDateTime expectedNextRun;
-
-        private void updateExpectedNextRun() {
-            expectedNextRun = lastRun.plusHours(MAX_DIFF_HOURS);
-        }
-
-        private void update(LocalDateTime date) {
-            lastRun = date;
-            updateExpectedNextRun();
-        }
-
-        private boolean canRun() {
-            LocalDateTime date = LocalDateTime.now();
-
-            if (lastRun == null || date.isAfter(expectedNextRun)) {
-                update(date);
-                return true;
-            }
-
-            return false;
-        }
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     }
 }
