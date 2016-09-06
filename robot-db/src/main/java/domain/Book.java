@@ -77,14 +77,20 @@ public class Book {
 
     @Override
     public String toString () {
-        return "Book{" +
-                ", title='" + title + '\'' +
-                ", newPrice=" + newPrice +
-                ", oldPrice=" + oldPrice +
-                ", currency='" + currency + '\'' +
-                ", year=" + year +
-                ", link='" + link + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return new StringBuilder("Book{title='")
+                .append(title)
+                .append("', newPrice=")
+                .append(newPrice)
+                .append(", oldPrice=")
+                .append(oldPrice)
+                .append("', currency=")
+                .append(currency)
+                .append(", year=")
+                .append(year)
+                .append(", link=")
+                .append(link)
+                .append(", description=")
+                .append(description)
+                .append("}").toString();
     }
 }

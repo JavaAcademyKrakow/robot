@@ -34,8 +34,11 @@ public class Author {
 
     @Override
     public String toString () {
-        return "Author{" +
-                "authorId=" + authorId +
-                ", name='" + name + '\'' +'}';
+        return new StringBuilder("Author{authorId=")
+                .append(authorId)
+                .append(", name='")
+                .append(name)
+                .append("'}")
+                .toString();
     }
 }
