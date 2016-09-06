@@ -2,7 +2,7 @@ $(document).ready(function() {
 $('#refresh').click(function(){
     $.ajax({
         method: "GET"
-        , url: "http://10.30.0.103:8080/reset"
+        , url: "http://localhost:8090/reset"
         , dataType: 'jsonp'
         , jsonpCallback: "myFunc",
         success: function (data) {
@@ -11,4 +11,3 @@ $('#refresh').click(function(){
     });
 });
 });
-
