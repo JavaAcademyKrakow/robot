@@ -53,7 +53,7 @@ public final class MainController {
             sleep(100);
         }
 
-        consumer.stopRunning();
+        consumer.running.set(false);
         future.cancel(true);
         queueExecutor.awaitTermination(1, TimeUnit.HOURS);
     }

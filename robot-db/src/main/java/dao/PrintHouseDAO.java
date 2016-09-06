@@ -1,6 +1,5 @@
 package dao;
 
-import domain.Category;
 import domain.PrintHouse;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,6 +1,7 @@
 package logic;
 
 import logic.controller.MainController;
+import logic.springconfig.TimeManager;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -8,23 +9,20 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Main {
-    private final MainController mainController = new MainController();
+    private static final MainController MAIN_CONTROLLER = new MainController();
+    public static final TimeManager TIME_MANAGER = new TimeManager();
 
-    private void launch() {
+    private Main() {}
+
+    /**
+     * Launcher of the main controller. It starts crawling the web pages and storing results in the database.
+     */
+    public static void launch() {
         try {
-            mainController.launch();
+            MAIN_CONTROLLER.launch();
         } catch (InterruptedException e) {
             log.debug("Interrupted exception found", e);
             Thread.currentThread().interrupt();
         }
-    }
-
-    /**
-     * Entry point of the application.
-     * @param args - unused
-     */
-    public static void main(String[] args) {
-        Main entryPoint = new Main();
-        entryPoint.launch();
     }
 }

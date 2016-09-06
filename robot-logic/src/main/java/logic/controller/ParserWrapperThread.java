@@ -46,7 +46,7 @@ final class ParserWrapperThread implements Runnable {
             log.debug(MESSAGE, e);
             Thread.currentThread().interrupt();
         }
-        parentThread.resetExecutingFlag();
+        parentThread.executing.set(false);
     }
 
     private void handleResults(Optional<List<ParsedBook>> listOptional) {

@@ -16,7 +16,10 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import java.util.Properties;
 
-
+/**
+ * Main configuration for Spring DB. This class consists of methods that return beans such as:
+ * BasicDataSource, LocalContainerEntityManagerFactoryBean and JpaTransactionManager.
+ */
 @Configuration
 @ComponentScan(basePackages = "repositories")
 @PropertySource("classpath:database.properties")
