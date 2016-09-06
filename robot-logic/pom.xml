@@ -17,6 +17,8 @@
         <commons-lang.version>2.2</commons-lang.version>
         <commons-io.version>1.3.2</commons-io.version>
         <web-app-runner.version>8.0.33.2</web-app-runner.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
+        <db.version>1.0-SNAPSHOT</db.version>
     </properties>
 
     <dependencies>
@@ -58,7 +60,7 @@
         <dependency>
             <groupId>g-shock-team.robot</groupId>
             <artifactId>robot-db</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${db.version}</version>
         </dependency>
 
         <dependency>
@@ -69,7 +71,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.3.2.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
 
     </dependencies>
