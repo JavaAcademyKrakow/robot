@@ -52,6 +52,9 @@ function checkSelectedCheckBox() {
     return selectedCategories;
 };
 
+/**
+    Remove # from ids
+*/
 function removeHash(tab) {
 
     for(var i=0; i<tab.length; i++) {
@@ -63,7 +66,6 @@ function removeHash(tab) {
 
 function goToBookBrowser(pageNumber) {
         var tab = JSON.stringify(removeHash(checkSelectedCheckBox()));
-        console.log(tab);
 
          $.ajax({
             method: "GET"
@@ -74,18 +76,12 @@ function goToBookBrowser(pageNumber) {
                 , "pageNumber" : pageNumber
                 }
             , success: function (data) {
-
                 books = data.books;
-
             },
-
          }).done(function(data) {
                   $(".main_c").load("/bookBrowser.html", function () {
                      loadBooks();
                      getNumberOfPages();
                   });
-
          });
-
-
 };

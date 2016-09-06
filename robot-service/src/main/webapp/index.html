@@ -12,13 +12,15 @@
     <script src="js/chooseUser.js"></script>
     <script src="js/chooseCategory.js"></script>
     <script src="js/browseBooks.js"></script>
-    <script src="js/zoom.js"></script>
+    <script src="js/buttonsLogic.js"></script>
     <script type="text/javascript" src="js/jquery.simplePagination.js"></script>
+    <script src="js/jquery.xdomainajax.js"></script>
     <link type="text/css" rel="stylesheet" href="css/simplePagination.css"/>
 
 </head>
 <body style="background-color: #EEEEEE;">
 
+ <script >  </script>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -36,6 +38,7 @@
                 <li><a href="#">Books browser</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a id="refresh" style="cursor:pointer"><span class="glyphicon glyphicon-refresh"></span> Refresh Database</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-lock"></span> Guest</a></li>

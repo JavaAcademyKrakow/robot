@@ -33,6 +33,7 @@ public class BookConverter {
     }
 
     public int numberOfPages() {
-        return (int)bookDAO.count()/12 + 1;
+        int count = (int)bookDAO.count();
+        return count %12 == 0 ? count/12-1 :count/12;
     }
 }

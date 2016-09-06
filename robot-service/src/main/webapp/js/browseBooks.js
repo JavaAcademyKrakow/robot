@@ -8,7 +8,7 @@ var thirdRow = "#third_row";
 
 function loadBooks() {
 
-    for(var i=0; i<books.length; i++) {
+    for(var i=0; i<12; i++) {
 
         var row = firstRow;
         if(i>7)
@@ -19,36 +19,23 @@ function loadBooks() {
         var s = row.concat(' > .book:nth-child(').concat((i%4)+1).concat(')');
         $(s).html("");
 
-        $(s).prepend('<img id="theImg" src="book.png" width="100" height="100" />')
-        $(s).append('<div><strong>Title: </strong>'.concat(books[i].title).concat('</div>'));
-        $(s).append('<div><strong>Print House: </strong>'.concat(books[i].printHouse).concat('</div>'));
-        $(s).append('<div><strong>Year: </strong>'.concat(books[i].year).concat('</div>'));
+        if(i < books.length) {
+            $(s).prepend('<div style="padding-left: 5px; padding-top: 10px; padding-bottom: 10px"><img id="theImg" src="book.png" width="100" height="100" /></div>')
+            $(s).append('<div><strong>Title: </strong>'.concat(books[i].title).concat('</div>'));
+            $(s).append('<div><strong>Print House: </strong>'.concat(books[i].printHouse).concat('</div>'));
+            $(s).append('<div><strong>Year: </strong>'.concat(books[i].year).concat('</div>'));
 
-        for(var j=0; j<books[i].authors.length; j++) {
-            $(s).append('<div><strong>Author: </strong>'.concat(books[i].authors[j]).concat('</div>'));
-        }
+            for(var j=0; j<books[i].authors.length; j++) {
+                $(s).append('<div><strong>Author: </strong>'.concat(books[i].authors[j]).concat('</div>'));
+            }
 
-        $(s).append('<div><strong>Category: </strong>'.concat(books[i].category).concat('</div>'));
-        $(s).append('<div><strong>Year: </strong>'.concat(books[i].year).concat('</div>'));
-        $(s).append('<div><strong>Old Price: </strong>'.concat(books[i].oldPrice).concat('</div>'));
-        $(s).append('<div><strong>New Price: </strong>'.concat(books[i].newPrice).concat('</div>'));
-        $(s).append('<div><strong>Currency: </strong>'.concat(books[i].currency).concat('</div>'));
-        $(s).append('<button><strong><a id="description'.concat(i).concat('">Description</a></strong></button>'));
-        console.log(s);
-        console.log('<button><strong><a id="description'.concat(i).concat('">Description</a></strong></button>'));
-        $(s).append('<div><a href="'.concat(books[i].link).concat('">Go To Page</div>'));
-    }
-};
-
-function updatePages() {
-
-    if(currentPage + 3 <= numberOfPages) {
-
-        for(var i=currentPage; i<currentPage + 4; i++) {
-
-            var p = ".pages > .page:nth-child(".concat(i - currentPage + 1).concat(")");
-            var t = "<button>".concat(i).concat("</button>");
-            $(p).append("<div>".concat(t).concat("</div>"));
+            $(s).append('<div><strong>Category: </strong>'.concat(books[i].category).concat('</div>'));
+            $(s).append('<div><strong>Year: </strong>'.concat(books[i].year).concat('</div>'));
+            $(s).append('<div><strong>Old Price: </strong>'.concat(books[i].oldPrice).concat('</div>'));
+            $(s).append('<div><strong>New Price: </strong>'.concat(books[i].newPrice).concat('</div>'));
+            $(s).append('<div><strong>Currency: </strong>'.concat(books[i].currency).concat('</div>'));
+            $(s).append('<button><strong><a id="description'.concat(i).concat('">Description</a></strong></button>'));
+            $(s).append('<div><a href="'.concat(books[i].link).concat('">Go To Page</div>'));
         }
     }
 };
@@ -62,22 +49,17 @@ function getNumberOfPages() {
                 numberOfPages = data;
                 $(function() {
                     $("#nav_books").pagination({
-                        items: 100,
-                        itemsOnPage: 10,
+                        items: 200,
+                        itemsOnPage: 12,
                         pages: data,
                         cssStyle: 'dark-theme',
                         onPageClick: function(pageNum){
                             changePage(pageNum);
-                            console.log(pageNum);
                         }
                     });
                 });
-
             }
-         }).done(function(data) {
-
-
-                    });
+         });
 };
 
 function changePage(pageNumber) {
@@ -92,15 +74,9 @@ function changePage(pageNumber) {
                 , "pageNumber" : pageNumber
                 }
             , success: function (data) {
-
                 books = data.books;
-
             },
-
-         }).done(function(data) {
-                  loadBooks();
-
+         }).done(function() {
+                loadBooks();
          });
-
-
 };

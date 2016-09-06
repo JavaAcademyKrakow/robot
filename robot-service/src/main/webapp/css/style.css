@@ -1,3 +1,8 @@
+.verticalBlock {
+    height: 2px;
+    background-color: #a3a3a3;
+}
+
 #r_arrow {
       display: flex;
       align-items: center;
