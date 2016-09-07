@@ -1,3 +1,7 @@
+.checkName {
+    padding-left: 40px;
+}
+
 .verticalBlock {
     height: 2px;
     background-color: #a3a3a3;
