@@ -21,20 +21,9 @@ class URIGenerator {
      *
      * @param baseURI - String representing the base URI of the web page.
      */
-    URIGenerator(String baseURI) {
+    URIGenerator(final String baseURI) {
         this.baseURI = baseURI;
         currentIndex = new AtomicInteger(1);
-    }
-
-    /**
-     * The main URIGenerator constructor.
-     *
-     * @param baseURI       - String representing the base URI of the web page.
-     * @param startingIndex - int representing starting index to be put in the place of '###' pattern.
-     */
-    URIGenerator(String baseURI, int startingIndex) {
-        this.baseURI = baseURI;
-        currentIndex = new AtomicInteger(startingIndex);
     }
 
     /**

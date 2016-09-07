@@ -19,19 +19,6 @@ public class URIGeneratorTest {
         };
     }
 
-
-    @DataProvider(name = "URIsequence")
-    private Object[][] provideURISequence() {
-        final URIGenerator generator = new URIGenerator("http://www.something.com/books/ebook?list=###&sortBy=asc", 0);
-
-        return new Object[][]{
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/books/ebook?list=0&sortBy=asc"},
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/books/ebook?list=1&sortBy=asc"},
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/books/ebook?list=2&sortBy=asc"},
-                new Object[]{generator.generateNextFullURI(), "http://www.something.com/books/ebook?list=3&sortBy=asc"}
-        };
-    }
-
     @DataProvider(name = "URIsequenceSingleArg")
     private Object[][] provideSequenceWithSingleArgs() {
         final URIGenerator generator = new URIGenerator("http://www.something.com/logic.book=###");
@@ -43,36 +30,6 @@ public class URIGeneratorTest {
         };
     }
 
-
-    /**
-     * Simple test of generating sequences by URIGenerator.
-     *
-     * @param base          - base string
-     * @param startingIndex - starting index (to replace ### pattern)
-     * @param expected      - expected result
-     */
-    @Test(dataProvider = "URIdataSingle")
-    public void testGeneratingFirstURI(String base, int startingIndex, String expected) {
-        // given
-        URIGenerator generator = new URIGenerator(base, startingIndex);
-        // when
-        String result = generator.generateNextFullURI();
-        //then
-        assertEquals(result, expected);
-    }
-
-
-    /**
-     * Simple test of generating sequences staring with default (1) starting index
-     *
-     * @param actual   - generated string (link)
-     * @param expected - expected link
-     */
-    @Test(dataProvider = "URIsequence")
-    public void testSequence(String actual, String expected) {
-        //then
-        assertEquals(actual, expected);
-    }
 
     /**
      * Test that checks the incremental behavior of URIGenerator.
