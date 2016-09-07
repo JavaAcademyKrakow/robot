@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import repositories.ParsedBook;
-import repositories.ParsedBook.ParsedBookBuilder;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -22,12 +21,9 @@ import static org.jsoup.Jsoup.connect;
 @Slf4j
 public class EbooksComParser implements Parser {
 
-
     private Document rootDocument;
-    private ParsedBookBuilder parsedBookBuilder;
     private CategoryName category;
     private String link;
-
 
     @Override
     public Parser setLink(String link) {
@@ -99,7 +95,7 @@ public class EbooksComParser implements Parser {
                 description = descriptionDoc.select("div.short-description").select("[itemprop]").text();
 
 
-                parsedBookBuilder = ParsedBook
+                ParsedBook parsedBook =  ParsedBook
                         .builder()
                         .title(title)
                         .year(year)
@@ -110,9 +106,10 @@ public class EbooksComParser implements Parser {
                         .oldPrice(oldPrice)
                         .newPrice(newPrice)
                         .description(description)
-                        .link(descriptionLink);
+                        .link(descriptionLink)
+                        .build();
 
-                resultList.add(parsedBookBuilder.build());
+                resultList.add(parsedBook);
             }
 
         } catch (IOException e) {
@@ -120,8 +117,6 @@ public class EbooksComParser implements Parser {
         }
         return Optional.of(resultList);
     }
-
-
 
     Document openDocument() throws IOException {
         return connect(link).timeout(0).get();
