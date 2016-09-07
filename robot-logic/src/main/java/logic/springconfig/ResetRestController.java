@@ -43,9 +43,16 @@ class ResetRestController {
         return new ResetResponse(lastDate.getHour(), lastDate.getMinute(), lastDate.getSecond(), canRun);
     }
 
-
+    /**
+     * Configuration class to send JSON as JSON with padding (JSON object converted to script). This class is
+     * needed because of AJAX on the front-end side. 
+     */
     @ControllerAdvice
     public static class JsonpAdvice extends AbstractJsonpResponseBodyAdvice {
+
+        /**
+         * This constructor simply invoke parent's constructor to allow using callback.
+         */
         public JsonpAdvice () {
             super("callback");
         }
