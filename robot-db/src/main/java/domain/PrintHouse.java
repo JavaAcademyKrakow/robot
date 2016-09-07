@@ -33,4 +33,19 @@ public class PrintHouse {
                 .append(name)
                 .append("}").toString();
     }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object printObj) {
+        if (this == printObj)
+            return true;
+        if (printObj == null || getClass() != printObj.getClass())
+            return false;
+        PrintHouse ph = (PrintHouse)printObj;
+        return name.equals(ph.name);
+    }
 }

@@ -1,6 +1,7 @@
 package domain;
 
 import lombok.*;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -40,5 +41,22 @@ public class Author {
                 .append(name)
                 .append("'}")
                 .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31)
+                .append(name).append(books)
+                .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object authorObj) {
+        if (this == authorObj)
+            return true;
+        if (authorObj == null || getClass() != authorObj.getClass())
+            return false;
+        Author author = (Author)authorObj;
+        return name.equals(author.name);
     }
 }
