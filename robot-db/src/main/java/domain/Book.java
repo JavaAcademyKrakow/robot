@@ -6,6 +6,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 
 /**
  * {@link Book} is representation of book in a database.
@@ -118,8 +120,9 @@ public class Book {
         if (bookObj == null || getClass() != bookObj.getClass())
             return false;
         Book book = (Book)bookObj;
-        return title.equals(book.title) && newPrice == book.newPrice
-                && oldPrice == book.oldPrice && currency.equals(book.currency) && year == book.year
+        return title.equals(book.title)
+                && abs(newPrice - book.newPrice) < 1e-10 && abs(oldPrice - book.oldPrice) < 1e-10
+                && currency.equals(book.currency) && year == book.year
                 && link.equals(book.link) && description.equals(book.description)
                 && printHouse.equals(book.printHouse) && authors.equals(book.authors)
                 && category == book.category;

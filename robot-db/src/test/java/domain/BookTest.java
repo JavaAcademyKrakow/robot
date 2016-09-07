@@ -9,6 +9,9 @@ import static java.util.Arrays.*;
 import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Tests for Book class.
+ */
 @Test()
 public class BookTest {
 
@@ -18,11 +21,6 @@ public class BookTest {
 
     @BeforeClass
     private void prepareBooks() {
-
-    }
-
-    @Test
-    public void test() {
         Author a1 = mock(Author.class);
         Author a2 = mock(Author.class);
         Author a3 = mock(Author.class);
@@ -100,6 +98,12 @@ public class BookTest {
         };
     }
 
+    /**
+     * Test of hashCode
+     * @param leftHash - first object's hashcode
+     * @param rightHash - second object's hashcode
+     * @param expected - expected result of (left == right)
+     */
     @Test(dataProvider = "hashcode")
     public void testHashCode(int leftHash, int rightHash, boolean expected) {
         // given, when
@@ -108,6 +112,12 @@ public class BookTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * Test of equals() method
+     * @param left - first book object
+     * @param right - second book object
+     * @param expected - expected result of left.equals(right)
+     */
     @Test(dataProvider = "equals")
     public void testEquality(Book left, Book right, boolean expected) {
         // given, when

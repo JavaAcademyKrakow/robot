@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Tests for Author class.
+ */
 @Test()
 public class AuthorTest {
     private final Author a1 = new Author();
@@ -42,6 +45,12 @@ public class AuthorTest {
         };
     }
 
+    /**
+     * Test of hashCode
+     * @param leftHash - first object's hashcode
+     * @param rightHash - second object's hashcode
+     * @param expected - expected result of (left == right)
+     */
     @Test(dataProvider = "hashcode")
     public void testHashCode(int leftHash, int rightHash, boolean expected) {
         // given, when
@@ -50,6 +59,12 @@ public class AuthorTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * Test of equals() method
+     * @param left - first author object
+     * @param right - second author object
+     * @param expected - expected result of left.equals(right)
+     */
     @Test(dataProvider = "equals")
     public void testEquality(Author left, Author right, boolean expected) {
         // given, when

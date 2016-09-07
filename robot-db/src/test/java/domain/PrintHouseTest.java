@@ -1,12 +1,14 @@
 package domain;
 
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+/**
+ * Tests for PrintHouse.
+ */
 @Test()
 public class PrintHouseTest {
 
@@ -44,6 +46,12 @@ public class PrintHouseTest {
         };
     }
 
+    /**
+     * Test of hashCode
+     * @param leftHash - first object's hashcode
+     * @param rightHash - second object's hashcode
+     * @param expected - expected result of (left == right)
+     */
     @Test(dataProvider = "hashcode")
     public void testPrintHouseHashCode(int leftHash, int rightHash, boolean expected) {
         // given, when
@@ -52,6 +60,12 @@ public class PrintHouseTest {
         assertEquals(actual, expected);
     }
 
+    /**
+     * Test of equals() method
+     * @param left - first print house object
+     * @param right - second print house object
+     * @param expected - expected result of left.equals(right)
+     */
     @Test(dataProvider = "equals")
     public void testEquality(PrintHouse left, PrintHouse right, boolean expected) {
         // given, when
