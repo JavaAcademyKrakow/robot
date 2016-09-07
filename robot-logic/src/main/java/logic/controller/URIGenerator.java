@@ -15,6 +15,7 @@ class URIGenerator {
 
     private final String baseURI;
     private AtomicInteger currentIndex;
+    private final int delta;
 
     /**
      * Starting with value 1 of internal counter;
@@ -24,6 +25,20 @@ class URIGenerator {
     URIGenerator(final String baseURI) {
         this.baseURI = baseURI;
         currentIndex = new AtomicInteger(1);
+        this.delta = 1;
+    }
+
+    /**
+     * This constructor takes base URI as the first argument and delta number to be added at each invocation of
+     * generateNextFullURI() method.
+     *
+     * @param baseURI String representing the base URI of the web page.
+     * @param delta Delta integer to be added in each invocation of {@Link generateNextFullURI()} method.
+     */
+    URIGenerator(final String baseURI, final int delta) {
+        this.baseURI = baseURI;
+        currentIndex = new AtomicInteger(1);
+        this.delta = delta;
     }
 
     /**
@@ -32,12 +47,16 @@ class URIGenerator {
      * @return - String representing next URI to parse
      */
     String generateNextFullURI() {
-        return baseURI.replace("###", valueOf(currentIndex.getAndIncrement()));
+        return baseURI.replace("###", valueOf(currentIndex.getAndAdd(delta)));
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 31).append(baseURI).append(currentIndex.get()).toHashCode();
+        return new HashCodeBuilder(17, 31)
+                .append(baseURI)
+                .append(currentIndex.get())
+                .append(delta)
+                .toHashCode();
     }
 
     @Override
@@ -47,6 +66,8 @@ class URIGenerator {
         if (generator == null || getClass() != generator.getClass())
             return false;
         URIGenerator linkGeneratorObject = (URIGenerator) generator;
-        return linkGeneratorObject.baseURI.equals(baseURI) && currentIndex.get() == linkGeneratorObject.currentIndex.get();
+        return linkGeneratorObject.baseURI.equals(baseURI)
+                && currentIndex.get() == linkGeneratorObject.currentIndex.get()
+                && delta == linkGeneratorObject.delta;
     }
 }

@@ -30,6 +30,17 @@ public class URIGeneratorTest {
         };
     }
 
+    @DataProvider(name = "URISequenceWithDelta")
+    private Object[][] provideSequenceWithNonDefaultDeltaConstructorArg() {
+        final URIGenerator generator = new URIGenerator("http://www.something.com/logic.book=###", 40);
+
+        return new Object[][]{
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=1"},
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=41"},
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=81"},
+                new Object[]{generator.generateNextFullURI(), "http://www.something.com/logic.book=121"}
+        };
+    }
 
     /**
      * Test that checks the incremental behavior of URIGenerator.
@@ -82,5 +93,57 @@ public class URIGeneratorTest {
         assertFalse(u1.equals(new Integer(4)));
         assertFalse(u1.equals(u3));
         assertFalse(u2.equals(u1.generateNextFullURI()));
+    }
+
+    /**
+     * Hashcode test with deltas
+     */
+    @Test
+    public void hashCodeTestWithDeltas() {
+        // given
+        URIGenerator u1 = new URIGenerator("aa", 40);
+        URIGenerator u2 = new URIGenerator("bb", 40);
+        URIGenerator u3 = new URIGenerator("aa");
+        URIGenerator u4 = new URIGenerator("aa", 40);
+
+        // when, then
+        assertEquals(u1.hashCode(), u1.hashCode());
+        assertNotEquals(u1.hashCode(), u2.hashCode());
+        assertNotEquals(u2.hashCode(), u3.hashCode());
+        assertNotEquals(u1.hashCode(), u3.hashCode());
+        assertEquals(u1.hashCode(), u4.hashCode());
+    }
+
+    /**
+     * Equality test with deltas
+     */
+    @Test
+    public void equalityTestWithDeltas() {
+        // given
+        URIGenerator u1 = new URIGenerator("aa", 40);
+        URIGenerator u2 = new URIGenerator("bb", 40);
+        URIGenerator u3 = new URIGenerator("aa");
+        URIGenerator u4 = new URIGenerator("aa", 40);
+
+        // when, then
+        assertFalse(u1.equals(u2));
+        assertFalse(u2.equals(u1));
+        assertFalse(u1.equals(u3));
+        assertFalse(u3.equals(u1));
+        assertTrue(u1.equals(u1));
+        assertTrue(u1.equals(u4));
+        assertTrue(u4.equals(u1));
+    }
+
+    /**
+     * Sequence test with deltas
+     *
+     * @param actual   generated value
+     * @param expected expected value
+     */
+    @Test(dataProvider = "URISequenceWithDelta")
+    public void sequnceWithDeltasTest(String actual, String expected) {
+        // then
+        assertEquals(actual, expected);
     }
 }
