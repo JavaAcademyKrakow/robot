@@ -22,6 +22,19 @@ import static org.testng.Assert.assertTrue;
 @Test()
 public class EbooksComParserTest {
 
+    // Test helper method - to avoid code duplication
+    private static Optional<List<ParsedBook>> retrieveListOfBooks(String resourcePath, String baseURI) throws IOException {
+        // given
+        InputStream is = ClassLoader.getSystemResourceAsStream(resourcePath);
+        EbooksComParser parser = mock(EbooksComParser.class);
+        Document doc = Jsoup.parse(is, null, baseURI);
+
+        // when
+        when(parser.openDocument()).thenReturn(doc);
+        when(parser.parse()).thenCallRealMethod();
+        return parser.parse();
+    }
+
     /**
      * This test covers the case in which parser tries to parse empty web page.
      * In this case, empty Optional should be returned.
@@ -51,24 +64,11 @@ public class EbooksComParserTest {
      */
     @Test
     public void testDocumentWithoutBooksOnDiscount() throws IOException {
-        // given
-        InputStream is = ClassLoader.getSystemResourceAsStream("ebooks_com/no_discount.html");
-        EbooksComParser parser = mock(EbooksComParser.class);
-        Document doc = Jsoup.parse(is, null, "http://www.ebooks.com/subjects/education/");
-
-        // when
-        when(parser.openDocument()).thenReturn(doc);
-        when(parser.parse()).thenCallRealMethod();
-        Optional<List<ParsedBook>> resultList = parser.parse();
-        List<ParsedBook> unpackedList;
-
-        if (resultList.isPresent())
-            unpackedList = resultList.get();
-        else
-            unpackedList = null;
+        // given, when
+        Optional<List<ParsedBook>> resultList = retrieveListOfBooks("ebooks_com/no_discount.html", "http://www.ebooks.com/subjects/education/");
 
         // then
-        assertTrue(unpackedList != null && unpackedList.isEmpty());
+        assertTrue(resultList.isPresent() && resultList.get().isEmpty());
     }
 
 
@@ -80,23 +80,10 @@ public class EbooksComParserTest {
      */
     @Test
     public void testParser() throws IOException {
-        // given
-        InputStream is = ClassLoader.getSystemResourceAsStream("ebooks_com/with_discount.html");
-        EbooksComParser parser = mock(EbooksComParser.class);
-        Document doc = Jsoup.parse(is, null, "http://www.ebooks.com/subjects/education/");
-
-        // when
-        when(parser.openDocument()).thenReturn(doc);
-        when(parser.parse()).thenCallRealMethod();
-        Optional<List<ParsedBook>> optionalListOfBooks = parser.parse();
-        List<ParsedBook> unpackedList;
-
-        if (optionalListOfBooks.isPresent())
-            unpackedList = optionalListOfBooks.get();
-        else
-            unpackedList = null;
+        // given, when
+        Optional<List<ParsedBook>> resultList = retrieveListOfBooks("ebooks_com/with_discount.html", "http://www.ebooks.com/subjects/education/");
 
         // then
-        assertTrue(unpackedList != null && unpackedList.size() == 8);
+        assertTrue(resultList.isPresent() && resultList.get().size() == 8);
     }
 }
