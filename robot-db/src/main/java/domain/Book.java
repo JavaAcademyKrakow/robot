@@ -1,9 +1,12 @@
 package domain;
 
 import lombok.*;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 
 /**
@@ -92,5 +95,34 @@ public class Book {
                 .append(", description=")
                 .append(description)
                 .append("}").toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17,31)
+                .append(title)
+                .append(newPrice)
+                .append(oldPrice)
+                .append(currency)
+                .append(year)
+                .append(link)
+                .append(description)
+                .append(printHouse)
+                .append(authors)
+                .append(category)
+                .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object bookObj) {
+        if (this == bookObj)
+            return true;
+        if (bookObj == null || getClass() != bookObj.getClass())
+            return false;
+        Book book = (Book)bookObj;
+        return year == book.year && category == book.category && title.equals(book.title)
+                && currency.equals(book.currency) && link.equals(book.link) && description.equals(book.description)
+                && printHouse.equals(book.printHouse) && authors.equals(book.authors)
+                && abs(newPrice - book.newPrice) < 1e-10 && abs(oldPrice - book.oldPrice) < 1e-10;
     }
 }
