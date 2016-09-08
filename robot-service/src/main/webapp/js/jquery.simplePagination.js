@@ -192,9 +192,9 @@
 							methods._appendItem.call(this, i);
 						}
 					}
-					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+					if (o.edges < interval.start && (interval.start - o.edges !== 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (interval.start - o.edges == 1) {
+					} else if (interval.start - o.edges === 1) {
 						methods._appendItem.call(this, o.edges);
 					}
 				}
@@ -207,9 +207,9 @@
 						}
 					}
 
-					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end !== 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (o.pages - o.edges - interval.end == 1) {
+					} else if (o.pages - o.edges - interval.end === 1) {
 						methods._appendItem.call(this, interval.end);
 					}
 				}
@@ -229,29 +229,29 @@
 			// Generate end edges
 			if (!o.invertPageOrder) {
 				if (interval.end < o.pages && o.edges > 0) {
-					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end !== 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (o.pages - o.edges - interval.end == 1) {
+					} else if (o.pages - o.edges - interval.end === 1) {
 						methods._appendItem.call(this, interval.end);
 					}
 					if(o.useEndEdge) {
-						var begin = Math.max(o.pages - o.edges, interval.end);
-						for (i = begin; i < o.pages; i++) {
+						var begin_p = Math.max(o.pages - o.edges, interval.end);
+						for (i = begin_p; i < o.pages; i++) {
 							methods._appendItem.call(this, i);
 						}
 					}
 				}
 			} else {
 				if (interval.start > 0 && o.edges > 0) {
-					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+					if (o.edges < interval.start && (interval.start - o.edges !== 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-					} else if (interval.start - o.edges == 1) {
+					} else if (interval.start - o.edges === 1) {
 						methods._appendItem.call(this, o.edges);
 					}
 
 					if(o.useEndEdge) {
-						var end = Math.min(o.edges, interval.start);
-						for (i = end - 1; i >= 0; i--) {
+						var end_p = Math.min(o.edges, interval.start);
+						for (i = end_p - 1; i >= 0; i--) {
 							methods._appendItem.call(this, i);
 						}
 					}
@@ -297,7 +297,7 @@
 
 			options = $.extend(options, opts || {});
 
-			if (pageIndex == o.currentPage || o.disabled) {
+			if (pageIndex === o.currentPage || o.disabled) {
 				if (o.disabled || options.classes === 'prev' || options.classes === 'next') {
 					$linkWrapper.addClass('disabled');
 				} else {
@@ -380,7 +380,7 @@
 	$.fn.pagination = function(method) {
 
 		// Method calling logic
-		if (methods[method] && method.charAt(0) != '_') {
+		if (methods[method] && method.charAt(0) !== '_') {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
 			return methods.init.apply(this, arguments);
