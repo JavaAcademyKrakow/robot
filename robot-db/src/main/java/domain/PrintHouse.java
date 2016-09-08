@@ -29,8 +29,8 @@ public class PrintHouse {
 
     @Override
     public String toString () {
-        return "PrintHouse{" +
-                "name='" + name + '\'' +
-                '}';
+        return new StringBuilder("PrintHouse{name=")
+                .append(name)
+                .append("}").toString();
     }
 }

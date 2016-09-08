@@ -9,5 +9,5 @@ public enum CategoryName {
     LIFESTYLE,
     SEX,
     MEDICINE,
-    ADVENTURE;
+    ADVENTURE
 }
