@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Tests for Book class.
+ * These tests are quite verbose but generally they test equality and hashCode.
  */
 @Test()
 public class BookTest {

@@ -120,11 +120,9 @@ public class Book {
         if (bookObj == null || getClass() != bookObj.getClass())
             return false;
         Book book = (Book)bookObj;
-        return title.equals(book.title)
-                && abs(newPrice - book.newPrice) < 1e-10 && abs(oldPrice - book.oldPrice) < 1e-10
-                && currency.equals(book.currency) && year == book.year
-                && link.equals(book.link) && description.equals(book.description)
+        return year == book.year && category == book.category && title.equals(book.title)
+                && currency.equals(book.currency) && link.equals(book.link) && description.equals(book.description)
                 && printHouse.equals(book.printHouse) && authors.equals(book.authors)
-                && category == book.category;
+                && abs(newPrice - book.newPrice) < 1e-10 && abs(oldPrice - book.oldPrice) < 1e-10;
     }
 }

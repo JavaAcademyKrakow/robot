@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Tests for Author class.
+ * Tests for Author class (equality and hashCode tests for now).
  */
 @Test()
 public class AuthorTest {

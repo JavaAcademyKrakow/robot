@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 
 /**
- * Tests for PrintHouse.
+ * Tests for PrintHouse (equality and hashCode for now).
  */
 @Test()
 public class PrintHouseTest {
